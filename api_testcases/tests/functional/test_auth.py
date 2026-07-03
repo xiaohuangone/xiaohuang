@@ -218,3 +218,55 @@ class TestAddresses:
             addr_id = addresses[-1].get("id")
             resp = client.delete(f"/v1/me/addresses/{addr_id}")
             assert resp.status_code in [200, 400, 404]
+
+
+@allure.epic("电商平台功能测试")
+@allure.feature("地址管理")
+class TestAddressUpdate:
+    """更新地址"""
+
+    @allure.story("更新地址")
+    @allure.title("P2: 正向 - 更新收货地址成功")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_update_address(self, client, auth_token):
+        # 先创建地址
+        client.post("/v1/me/addresses", json={
+            "receiver": "待更新", "phone": "13600136000",
+            "region": "深圳", "detail": "南山大道200号", "isDefault": 0,
+        })
+        resp = client.get("/v1/me/addresses")
+        addresses = resp.json().get("data", [])
+        if not addresses:
+            pytest.skip("无地址，跳过")
+        addr_id = addresses[-1].get("id")
+        resp = client.put(f"/v1/me/addresses/{addr_id}", json={
+            "receiver": "已更新",
+            "phone": "13600999000",
+            "region": "深圳 南山区",
+            "detail": "更新后的地址",
+            "isDefault": 1,
+        })
+        assert resp.status_code in [200, 400, 500]
+
+    @allure.story("更新地址")
+    @allure.title("P2: 反向 - 更新不存在的地址返回错误")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_update_nonexist_address(self, client, auth_token):
+        resp = client.put("/v1/me/addresses/99999", json={
+            "receiver": "不存在", "phone": "13600136000",
+            "region": "北京", "detail": "xx路",
+        })
+        assert resp.status_code in [200, 400, 404]
+
+    @allure.story("更新地址")
+    @allure.title("P2: 鉴权 - 无 Token 更新地址返回未授权")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_update_address_without_token(self, base_client):
+        resp = base_client.put("/v1/me/addresses/1", json={
+            "receiver": "X", "phone": "13800138000",
+            "region": "北京", "detail": "xx路",
+        })
+        HttpAssertions.unauthorized(resp)

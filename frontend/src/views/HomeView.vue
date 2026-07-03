@@ -120,7 +120,7 @@ const load = async () => {
         id: String(x.id ?? ''),
         title: name,
         price,
-        cover: `/product_${x.id ?? ''}.jpg`,
+        cover: x.image ?? `/product_${x.id ?? ''}.jpg`,
         tags: [],
         rating: 4.6,
       } as ProductCard

@@ -38,6 +38,25 @@ public class WebApplication {
                 """);
 
             jdbcTemplate.execute("""
+                CREATE TABLE IF NOT EXISTS products (
+                  id bigint(20) NOT NULL AUTO_INCREMENT,
+                  category_id bigint(20) NULL,
+                  name varchar(255) NOT NULL,
+                  description text NULL,
+                  tags varchar(255) NULL,
+                  price decimal(10,2) NOT NULL,
+                  stock int(11) NOT NULL DEFAULT 0,
+                  status tinyint(4) NOT NULL DEFAULT 1,
+                  create_time datetime DEFAULT CURRENT_TIMESTAMP,
+                  update_time datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                  PRIMARY KEY (id),
+                  KEY idx_category_id (category_id),
+                  KEY idx_status (status),
+                  KEY idx_create_time (create_time)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+                """);
+
+            jdbcTemplate.execute("""
                 CREATE TABLE IF NOT EXISTS reviews (
                   id bigint(20) NOT NULL AUTO_INCREMENT,
                   user_id bigint(20) NOT NULL,

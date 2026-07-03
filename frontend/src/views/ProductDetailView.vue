@@ -295,7 +295,7 @@ const load = async () => {
     const originalPrice = Number.isFinite(Number(x.originalPrice)) ? Number(x.originalPrice) : price + 500
 
     const media =
-      Array.isArray(x.media) && x.media.every((m: unknown) => typeof m === 'string') ? (x.media as string[]) : []
+      Array.isArray(x.media) && x.media.every((m: unknown) => typeof m === 'string') ? (x.media as string[]) : x.image ? [x.image] : []
 
     const figmaSkus: Sku[] = [
       { id: 'natural-256', attrs: { 规格: '原色钛金属 / 256GB' }, price, stock: 50 },

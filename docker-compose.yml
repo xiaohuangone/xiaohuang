@@ -1,11 +1,11 @@
 version: "3.9"
 services:
   mysql:
-    # image: mysql:8.0
+    image: mysql:8.0
     container_name: projectku-mysql
     environment:
       MYSQL_ROOT_PASSWORD: "123456"
-      MYSQL_DATABASE: "projectku"
+      MYSQL_DATABASE: "web"
       TZ: "Asia/Shanghai"
     volumes:
       - ./mysql-data:/var/lib/mysql
@@ -17,3 +17,41 @@ services:
       "--character-set-server=utf8mb4",
       "--collation-server=utf8mb4_unicode_ci"
     ]
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p123456"]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+  backend:
+    build:
+      context: ./back
+      dockerfile: Dockerfile
+    container_name: projectku-backend
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/web?useUnicode=true&characterEncoding=utf-8&serverTimezone=Asia/Shanghai&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: "123456"
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - projectku-net
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: projectku-frontend
+    ports:
+      - "5173:5173"
+    depends_on:
+      - backend
+    networks:
+      - projectku-net
+
+networks:
+  projectku-net:
+    driver: bridge

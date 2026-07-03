@@ -116,7 +116,7 @@ const load = async () => {
         id,
         title: name,
         price,
-        cover: `/product_${id}.jpg`,
+        cover: x.image ?? `/product_${id}.jpg`,
         tags: [],
         rating: 4.5,
         sales: 0,

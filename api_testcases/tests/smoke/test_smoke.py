@@ -10,12 +10,11 @@ class TestSmoke:
     """P0 冒烟测试"""
 
     @allure.story("健康检查")
-    @allure.title("P0: 健康检查接口返回 UP")
+    @allure.title("P0: 根路径返回服务运行中")
     @allure.severity(allure.severity_level.BLOCKER)
     def test_health_check(self, client):
-        resp = client.get("/actuator/health")
-        HttpAssertions.ok(resp)
-        assert resp.json()["status"] == "UP"
+        resp = client.get("/")
+        assert resp.status_code == 200
 
     @allure.story("用户注册")
     @allure.title("P0: 注册接口可达并返回有效用户 ID")

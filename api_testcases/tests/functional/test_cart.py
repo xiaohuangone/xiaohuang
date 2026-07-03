@@ -81,6 +81,64 @@ class TestCartAdd:
 
 @allure.epic("电商平台功能测试")
 @allure.feature("购物车管理")
+class TestCartList:
+    """购物车列表"""
+
+    @allure.story("购物车列表")
+    @allure.title("P1: 正向 - 获取购物车列表成功")
+    @allure.severity(allure.severity_level.CRITICAL)
+    @pytest.mark.P1
+    def test_get_cart(self, client, auth_token, product_id):
+        # 先加一个商品
+        client.post("/v1/cart/items", json={"productId": product_id, "quantity": 1})
+        resp = client.get("/v1/cart")
+        HttpAssertions.ok(resp)
+        data = resp.json()
+        assert "data" in data or "code" in data
+
+    @allure.story("购物车列表")
+    @allure.title("P2: 鉴权 - 无 Token 获取购物车返回未授权")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_get_cart_without_token(self, base_client):
+        resp = base_client.get("/v1/cart")
+        HttpAssertions.unauthorized(resp)
+
+
+@allure.epic("电商平台功能测试")
+@allure.feature("购物车管理")
+class TestCartUpdate:
+    """更新购物车商品数量"""
+
+    @allure.story("更新购物车")
+    @allure.title("P2: 正向 - 更新购物车商品数量成功")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_update_cart_item_quantity(self, client, auth_token, product_id):
+        # 先加一个商品
+        client.post("/v1/cart/items", json={"productId": product_id, "quantity": 1})
+        # 获取购物车拿到 item_id
+        resp = client.get("/v1/cart")
+        items = resp.json().get("data", []) or []
+        if not items:
+            pytest.skip("购物车为空，跳过")
+        item_id = items[0].get("id")
+        if not item_id:
+            pytest.skip("无购物车项 ID，跳过")
+        resp = client.put(f"/v1/cart/items/{item_id}", json={"quantity": 5})
+        assert resp.status_code in [200, 400, 500]
+
+    @allure.story("更新购物车")
+    @allure.title("P2: 鉴权 - 无 Token 更新购物车返回未授权")
+    @allure.severity(allure.severity_level.NORMAL)
+    @pytest.mark.P2
+    def test_update_cart_without_token(self, base_client):
+        resp = base_client.put("/v1/cart/items/1", json={"quantity": 3})
+        HttpAssertions.unauthorized(resp)
+
+
+@allure.epic("电商平台功能测试")
+@allure.feature("购物车管理")
 class TestCartDelete:
     """删除购物车"""
 

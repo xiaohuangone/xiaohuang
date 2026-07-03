@@ -1,27 +1,26 @@
 @echo off
-setlocal enableextensions enabledelayedexpansion
+chcp 65001 >nul
+echo ==========================================
+echo    ProjectKu Web - 启动前端服务
+echo ==========================================
+echo.
 
-set ROOT=%~dp0
-set FRONTEND_DIR=%ROOT%frontend
+set "ROOT=%~dp0"
+set "FRONTEND_DIR=%ROOT%frontend"
 
-if not exist "%FRONTEND_DIR%\package.json" (
-  echo Frontend not found: "%FRONTEND_DIR%\package.json"
-  exit /b 1
+:: 检查前端是否已运行
+netstat -ano | findstr ":5173.*LISTENING" >nul 2>&1
+if %errorlevel% equ 0 (
+    echo 前端服务已在运行 (端口 5173)
+    echo 地址: http://localhost:5173
+    pause
+    exit /b 0
 )
 
-pushd "%FRONTEND_DIR%"
+echo 正在启动前端服务...
+echo.
 
-if not exist "node_modules\" (
-  echo Installing dependencies...
-  npm install
-  if %ERRORLEVEL% neq 0 (
-    popd
-    exit /b %ERRORLEVEL%
-  )
-)
-
-echo Starting frontend dev server...
+cd /d "%FRONTEND_DIR%"
 npm run dev
 
-popd
-exit /b 0
+pause
