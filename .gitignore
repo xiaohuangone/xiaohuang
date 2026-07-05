@@ -29,6 +29,13 @@ Thumbs.db
 .pids/
 logs/
 mysql-data/
+mariadb/
 api_testcases/pytest/__pycache__/
 api_testcases/pytest/pytest-report.html
 api_testcases/pytest/report.xml
+
+# 临时导入批次文件
+api_testcases/batch_*.xlsx
+
+# 调试脚本
+api_testcases/debug_*.py

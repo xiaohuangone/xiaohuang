@@ -1,0 +1,2178 @@
+<!DOCTYPE html><html class="theme-default" display="false" lang="zh-cn"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="renderer" content="webkit"><title>元气购电商平台-用例 - 禅道</title><style>.icon-app-empty::before{content: "\ea6e"}</style><link rel="icon" href="/zentao/favicon.ico" type="image/x-icon"><link rel="shortcut icon" href="/zentao/favicon.ico" type="image/x-icon"><script id="configJS">;(function(){window.config = {"webRoot":"\/zentao\/","debug":false,"appName":"","cookieLife":30,"requestType":"GET","requestFix":"-","moduleVar":"m","methodVar":"f","viewVar":"t","version":"22.2","vision":"rnd","visions":{"rnd":"研发综合界面","lite":"运营管理界面"},"defaultView":"html","themeRoot":"\/zentao\/theme\/","currentModule":"index","currentMethod":"index","rawModule":"index","rawMethod":"index","clientLang":"zh-cn","clientLangs":["zh-cn","zh-tw","en"],"requiredFields":"","router":"\/zentao\/index.php","save":"保存","expand":"展开全部","runMode":"","timeout":30000,"pingInterval":"","onlybody":"no","clientCache":true,"morphUpdate":true,"account":"qa_girl_02","zin":true,"maxUploadSize":"100M"};}());</script><link id="zuiCSS" rel="stylesheet" href="/zentao/js/zui3/zui.zentao.css?v=22.2"><link id="zuiTheme" rel="stylesheet" href="/zentao/js/zui3/themes/default.css?v=22.2"><script id="zuiJS" src="/zentao/js/zui3/zui.zentao.js?v=22.2"></script><script>;(function(){$.setLibRoot("\/zentao\/js\/zui3\/");}());</script><script>;(function(){window.zin = {};}());</script><script src="/zentao/js/zui3/zin.js?v=22.2"></script><script>;(function(){window.zaiLang=
+{"zaiConfigNotValid":"尚未进行ZAI配置，请联系管理员进行<a href=\"\/zentao\/index.php?m=zai&f=setting\">ZAI配置<\/a>。<br>若已完成相关配置，请尝试重新加载页面。"}}());</script><script id="aiJS" src="/zentao/js/zui3/ai.js?v=22.2"></script></head><body class="show-menu" data-app="qa"><style class="zin-page-css" data-id="index-index">:root
+{
+    --zt-apps-bar-height: 36px;
+    --zt-apps-bar-bg: var(--color-canvas);
+    --zt-menu-width: 120px!important;
+    --zt-menu-fold-width: 64px;
+    --zt-menu-space: 8px;
+    --zt-menu-active-bg: var(--color-primary-500);
+    --zt-menu-hover-bg: rgba(var(--color-primary-500-rgb), .4);
+    --zt-menu-text-color: rgba(var(--color-canvas-rgb), 1);
+    --zt-menu-text-active: var(--color-canvas);
+    --zt-menu-bg: var(--color-primary-600);
+}
+[lang^='en'] {--zt-menu-width: 132px!important;}
+
+#menu {position: fixed; left: 0; top: 0; bottom: 0; background: var(--zt-menu-bg); width: var(--zt-menu-width); color: var(--zt-menu-text-color); transition: width .1s; user-select: none; z-index: 1120;}
+#menu.waiting-workspace > * {visibility: hidden;}
+#menu .nav {flex-direction: column; align-items: stretch;}
+#menu .nav > li {display: block; height: var(--zt-menu-height, 38px); padding: 4px 8px; transition: padding .2s;}
+#menu .nav > .divider, #menuMoreList > .divider {background: var(--color-canvas); opacity: .12; height: 1px; padding: 6px 8px; align-self: stretch; background-clip: content-box; box-sizing: content-box; border: none; margin: 0 4px}
+#menu .nav > li > a {color: inherit; display: flex; align-items: center; gap: 4px; padding: 0 6px; height: calc(var(--zt-menu-height, 38px) - 8px); transition: color .2s, background-color .2s; border-radius: var(--radius-md); overflow: hidden;}
+#menu .nav > li > a.active,
+#menu .nav > li > a:hover {background: var(--zt-menu-hover-bg); color: var(--zt-menu-text-active)}
+#menu .nav > li > a.active {background: var(--zt-menu-active-bg); color: var(--zt-menu-text-active)}
+#menu .nav > li > a > .text {white-space: nowrap;}
+#menu .nav > li > a > .icon {font-size: 18px; display: inline-flex; align-items: center; justify-content: center; margin-right: 2px;}
+@supports not (gap: 1px) {#menu .nav > li > a > .icon {margin-right: 4px;}}
+
+#spaceHeading {display: none; height: 40px; align-items: center; flex-wrap: nowrap; gap: 4px; margin: var(--zt-menu-space) var(--zt-menu-space) calc(var(--zt-menu-space) / 4); background-color: rgba(var(--color-canvas-rgb), .1); border-radius: var(--radius-md); position: relative; padding: 0 8px;}
+.has-space #spaceHeading {display: flex;}
+#spaceHeading > .text {min-width: 0; overflow: hidden; white-space: nowrap; flex: auto}
+#spaceHeading > .icon, #spaceHeading > .label {flex: none}
+#spaceHeading.has-dropmenu > .icon, #spaceHeading > .label {display: none;}
+#spaceDropmenu {position: absolute; left: 0; top: 0; right: 0; bottom: 0;}
+#spaceDropmenu .dropmenu-btn {height: 40px; width: 100%;}
+#spaceDropmenu .dropmenu-btn > .text {min-width: 0; overflow: hidden; white-space: nowrap; flex: auto;}
+#spaceDropmenu .dropmenu-btn > .icon {font-size: 16px;}
+.dropmenu.popup {background: var(--color-surface-light);}
+.hide-menu #spaceHeading > .text, .hide-menu #spaceHeading > .label {display: none;}
+.hide-menu #spaceHeading > .icon {display: flex;}
+.hide-menu #spaceHeading {justify-content: center;}
+
+#menuNav {padding: 4px 0;}
+#menuMainNav a {cursor: pointer;}
+.show-menu #menuToggleNav [data-hint]::after {content: attr(data-collapse-text)}
+.show-menu #menuNav [data-hint]::before, .show-menu #menuNav [data-hint]::after {display: none;}
+.show-menu #menuToggleNav [data-hint]::before, .show-menu #menuToggleNav [data-hint]::after {display: block;}
+#menuToggleNav::before {content: ''; display: block; background: var(--color-canvas); opacity: .12; height: 1px; padding: 6px 8px; align-self: stretch; background-clip: content-box; box-sizing: content-box; border: none; margin: 0 4px}
+
+#menuMainNav .is-space,
+.has-space #menuMainNav .is-original {display: none;}
+.has-space #menuMainNav .is-space {display: block;}
+
+#menuMoreNav {display: none;}
+.show-more-nav #menuMoreNav {display: block;}
+#menuMoreNav > li > a.with-popover-show {background-color: rgba(255,255,255,.1);}
+#menuMoreList {background: var(--zt-menu-bg); padding: 8px 0; min-width: 100px; list-style: none;}
+#menuMoreList > .menu-item {padding: 1px 12px!important; height: 32px!important;}
+#menuMoreList > .menu-item > a > .text {flex: auto;}
+#menuMoreList > .menu-item > a > .icon {font-size: 16px;}
+
+body.hide-menu {--zt-menu-width: var(--zt-menu-fold-width)!important;}
+.hide-menu #menu .nav > li > a {justify-content: center;}
+.hide-menu #menu .nav > li > a > .text {display: none;}
+.hide-menu #menu #menuMoreNav .nav > li > a > .text {display: flex;}
+.hide-menu #menu .menu-toggle > .icon {transform: rotate(180deg);}
+
+#apps {position: fixed; left: var(--zt-menu-width); top: 0; bottom: var(--zt-apps-bar-height); right: 0; background-color: var(--zt-page-bg); transition: left .1s;}
+.hide-menu #apps {left: var(--zt-menu-fold-width)!important;}
+
+#appsBar {display: flex; flex-wrap: nowrap; align-items: center; position: fixed; left: var(--zt-menu-width); bottom: 0; right: 0; height: var(--zt-apps-bar-height); padding: 0 4px; background: var(--zt-apps-bar-bg); box-shadow: 0 -2px 12px rgba(0,0,0,.02); transition: left .1s; border-top-width: 1px;}
+.hide-menu #appsBar {left: var(--zt-menu-fold-width)!important;}
+#appTabs {flex: auto; user-select: none; --nav-active-color: currentColor}
+#appTabs > li > a {border-radius: var(--radius-md); opacity: .6;}
+#appTabs > li + li::before {display: block; content: ' '; position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px; background: var(--color-inverse); opacity: .12;}
+#appTabs > li > a.active {opacity: 1;}
+.has-space #appTabs > li {display: none;}
+.has-space #appTabs > li.active {display: flex;}
+#appsToolbar {width: 360px; display: flex; justify-content: flex-end;}
+#appsToolbar > .btn {color: inherit}
+#appsToolbar > .btn-zentao > .icon {color: var(--color-primary-400)}
+
+#visionSwitcher {flex: none; position: relative; margin-right: 12px; margin-left: 4px;}
+#visionSwitcher::before, #visionSwitcher::after {content: ''; display: block; position: absolute; right: -9px; top: -2px; width: 0; height: 0; border-style: solid; border-width: 18px 0 18px 8px; border-color: transparent transparent transparent var(--color-canvas);}
+#visionSwitcher::before {right: -10px; border-left-color: var(--color-fore); opacity: .1;}
+#versionSwitchBtn {padding: 0 6px;}
+.has-space #visionSwitcher {display: none;}
+
+.app-container {position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; transition-duration: .3s; background: var(--zt-page-bg);}
+.app-container.loading {background: var(--zt-page-bg) linear-gradient(180deg, var(--zt-header-bg) 0, var(--zt-header-bg) 48px, rgba(255,0,0,0) 48px) no-repeat;}
+.app-container.loading:before {background-color: rgba(0,0,0,.1);}
+.app-container.loading:before, .ap p-container.loading::after {transition-delay: 3s;}
+.app-container.loading.open-from-hidden {transition-delay: 0s;}
+.app-container.loading.open-from-hidden > iframe {opacity: 0;}
+.app-container > iframe {width: 100%; height: 100%; background: inherit; transition-duration: .1s;}
+
+.messagers > .messager-holder {max-width: 35%;}
+.messager-notice, .score-notice {align-items: flex-start;}
+.messager-notice > .icon-envelope-o, .score-notice > .icon-diamond {margin-top: 2px;}
+.messager-notice > .alert-close {position: fixed; top: 10px; right: 15px; width: 20px; height: 20px;}
+.messager-notice .browser-message-content {color: rgba(30,168,254); max-height: calc(100vh - 14rem); overflow-y: auto;}
+.messager-notice .browser-message-content > span {width: 94%; display: inline-block;}
+.messager-notice .browser-message-content > a {color: rgba(49,60,82)}
+
+.hl-tutorial {position: relative!important; z-index: 1010!important; -webkit-box-shadow: 0 0 0 0 #000!important; box-shadow: 0 0 0 0 #000!important; -webkit-transition: -webkit-box-shadow 1s!important; -o-transition: box-shadow 1s!important; transition: -webkit-box-shadow 1s!important; transition: box-shadow 1s!important; transition: box-shadow 1s,-webkit-box-shadow 1s!important }
+.hl-tutorial.hl-in { -webkit-box-shadow: 0 0 20px 0 #ffff8d,0 0 0 2px #ffd180,0 0 0 3000px rgba(0,0,0,.2)!important; box-shadow: 0 0 20px 0 #ffff8d,0 0 0 2px #ffd180,0 0 0 3000px rgba(0,0,0,.2)!important }
+.btn.tooltip-tutorial,.hl-tutorial.hl-in:hover { position: relative!important; z-index: 1010!important; -webkit-box-shadow: 0 0 30px 0 #ffff8d,0 0 0 5px #ffd180,0 0 0 3000px rgba(0,0,0,.3)!important; box-shadow: 0 0 30px 0 #ffff8d,0 0 0 5px #ffd180,0 0 0 3000px rgba(0,0,0,.3)!important
+}
+
+#upgradeContent {display: none; position: absolute; bottom: var(--zt-apps-bar-height); right: 10px; width: 370px; height: 322px; background-color: #fff; padding: 5px 0; border: 1px solid rgba(0,0,0,.15); border-color: rgba(0,0,0,.1); opacity: 1; border-radius: 4px; box-shadow: 0 6px 12px rgba(0,0,0,.12), 0 1px 3px rgba(0,0,0,.1);}
+.version-upgrade {width: 14px; height: 16px; float: left; background-repeat: no-repeat; background-position: center ; background-size: cover; display: block;}
+#latestVersionList {height: 270px; overflow: auto;}
+
+#menuMainNav[z-use-sortable] a[data-app]:hover {cursor: move;}
+#menuMainNav[z-use-sortable] li.divider:hover {cursor: move;}
+.tutorial-hl {position: relative; z-index: 1000; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.4);}
+.tutorial-hl {position: relative; z-index: 1000;}
+.tutorial-hl {position: relative; z-index: 1000!important;}
+.tutorial-popover .arrow::before {border: 3px solid var(--color-primary-500); width: 10px; height: 10px; border-radius: 50%}
+.tutorial-popover .arrow-top::before {top: calc(-34px - var(--arrow-size))}
+.tutorial-popover .arrow-left::before {left: calc(-34px - var(--arrow-size))}
+.tutorial-popover .arrow-right::before {right: calc(-34px - var(--arrow-size))}
+.tutorial-popover .arrow-bottom::before {bottom: calc(-34px - var(--arrow-size))}
+.tutorial-popover .arrow::after {content: ' '; position: absolute; background: var(--color-primary-500); display: block; width: 32px; height: 32px; visibility: visible;}
+.tutorial-popover .arrow-top::after {width: 2px; top: calc(var(--arrow-size) - 34px); left: 4px}
+.tutorial-popover .arrow-left::after {height: 2px; left: calc(var(--arrow-size) - 34px); top: 4px}
+.tutorial-popover .arrow-right::after {height: 2px; right: calc(var(--arrow-size) - 34px); top: 4px}
+.tutorial-popover .arrow-bottom::after {width: 2px; bottom: calc(var(--arrow-size) - 34px); left: 4px}
+#versionSwitchBtn > .icon, .vision-icon {display: flex; width: 18px; height: 18px; border-radius: var(--radius-md); align-items: center; justify-content: center; background: rgba(var(--color-inverse-rgb), .1); opacity: .7;}
+#versionSwitchBtn > .icon, .selected .vision-icon {background: var(--color-primary-500); color: #fff; opacity: 1;}
+#versionSwitchBtn > .icon::before, .vision-icon::before {transform: scale(.8);}
+
+#visionSwitchMenu {display: none; min-width: 240px; border-radius: var(--radius-md); --menu-bg: transparent}
+.vision-vision-menu-main {width: 240px}
+#visionSwitchMenu.show {display: flex; flex-direction: column;}
+#visionSwitchMenu .vision-icon {width: 20px; height: 20px; opacity: 1}
+#visionSwitchMenu .menu-heading {font-weight: normal}
+#visionSwitchMenu .vision-workspace-menu {width: 280px; display: flex; align-items: stretch;}
+#visionSwitchMenu .vision-workspace-menu.is-expanded {width: 560px;}
+#visionSwitchMenu .vision-workspace-menu > * {min-width: 0;}
+#chat-container {position: fixed; left: 100px; right: 0; height: calc(100% - 36px); display: none;}
+.hide-menu #chat-container {left: 64px;}
+
+#xuan-chat-view {position: absolute; width: 100%; height: 100%; z-index: 10; display: none;}
+#xuan-chat-view #xx-embed-container {position: absolute; bottom: 0; left: 0; right: 0; top: 0;}
+
+.unconfigured {position: absolute; width: 330px; padding: 20px; right: 0; top: 0; bottom: 0; background: #fff; outline: 1px solid #eee;}
+.unconfigured > div {margin-bottom: 10px;}
+#xuan-chat-view .unconfigured {top: 50px;}
+
+#reload-ai-chat.disabled {cursor: wait; color: #999!important;}
+
+#chat-btn .notice-badge {position: absolute; bottom: 2px; right: 1px; line-height: 14px; height: 14px; min-width: 14px; text-align: center; display: inline-block; font-size: 12px; border-radius: 7px; opacity: 0; transform: scale(0); transition: .2s; transition-property: transform, opacity; padding: 0 2px;}
+#chat-btn .notice-badge.show {opacity: 1; transform: scale(1);}</style><style>
+#versionTitle {background-image: url('/zentao/theme/default/images/main/version-upgrade.svg');}
+.icon-version {width: 20px; height: 24px; margin: -4px 3px 0px 0px; background-image: url('/zentao/theme/default/images/main/version-new.svg');}
+.icon-version:before {content:'';}
+</style><script id="appsItemsData">;(function(){window.appsItems = [{"group":"my","code":"my","active":false,"title":"<i class='icon icon-menu-my'><\/i> 地盘","moduleName":"my","methodName":"index","vars":"","url":"\/zentao\/index.php?m=my&f=index"},{"group":"product","code":"product","active":false,"title":"<i class='icon icon-product'><\/i> 产品","moduleName":"product","methodName":"all","vars":"","url":"\/zentao\/index.php?m=product&f=all"},{"group":"project","code":"project","active":false,"title":"<i class='icon icon-project'><\/i> 项目","moduleName":"project","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=project&f=browse"},{"group":"execution","code":"execution","active":false,"title":"<i class='icon icon-run'><\/i> 执行","moduleName":"execution","methodName":"task","vars":"","url":"\/zentao\/index.php?m=execution&f=task"},{"group":"qa","code":"qa","active":false,"title":"<i class='icon icon-test'><\/i> 测试","moduleName":"qa","methodName":"index","vars":"","url":"\/zentao\/index.php?m=qa&f=index"},{"group":"devops","code":"devops","active":false,"title":"<i class='icon icon-devops'><\/i> DevOps","moduleName":"repo","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=repo&f=browse"},"divider",{"group":"bi","code":"bi","active":false,"title":"<i class='icon icon-statistic'><\/i> BI","moduleName":"screen","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=screen&f=browse"},"divider",{"group":"doc","code":"doc","active":false,"title":"<i class='icon icon-doc'><\/i> 文档","moduleName":"doc","methodName":"lastViewedSpace","vars":"","url":"\/zentao\/index.php?m=doc&f=lastViewedSpace"},"divider",{"group":"system","code":"system","active":false,"title":"<i class='icon icon-group'><\/i> 组织","moduleName":"my","methodName":"team","vars":"","url":"\/zentao\/index.php?m=my&f=team"},{"group":"admin","code":"admin","active":false,"title":"<i class='icon icon-cog-outline'><\/i> 后台","moduleName":"admin","methodName":"index","vars":"","url":"\/zentao\/index.php?m=admin&f=index"}];}());</script><script id="searchItemsData">;(function(){window.searchItems = [{"key":"search","text":"搜索 {0}"},{"key":"bug","text":"Bug #{0}"},{"key":"story","text":"研发需求 #{0}"},{"key":"epic","text":"业务需求 #{0}"},{"key":"task","text":"任务 #{0}"},{"key":"testcase","text":"用例 #{0}"},{"key":"product","text":"产品 #{0}"},{"key":"build","text":"构建 #{0}"},{"key":"release","text":"发布 #{0}"},{"key":"productplan","text":"产品计划 #{0}"},{"key":"testtask","text":"测试单 #{0}"},{"key":"doc","text":"文档 #{0}"},{"key":"caselib","text":"用例库 #{0}"},{"key":"testreport","text":"测试报告 #{0}"},{"key":"project","text":"项目 #{0}"},{"key":"execution","text":"执行 #{0}"},{"key":"user","text":"用户 #{0}"},{"key":"aiapp","text":"AI #{0}"}];}());</script><script id="userVisionData">;(function(){window.userVisions = ["rnd","lite"];}());</script><div id="menu" data-space=""><div id="spaceHeading"><i class="icon icon-space"></i><div class="text"></div></div><div id="menuNav"><ul class="nav" id="menuMainNav"><li class="hint-right is-original" data-app="my" data-hint="地盘"><a data-pos="menu" data-app="my" href="/zentao/index.php?m=my&amp;f=index" class="rounded show-in-app"><i class="icon icon-app-empty icon-menu-my"></i><span class="text">地盘</span></a></li><li class="hint-right is-original" data-app="product" data-hint="产品"><a data-pos="menu" data-app="product" href="/zentao/index.php?m=product&amp;f=all" class="rounded show-in-app"><i class="icon icon-app-empty icon-product"></i><span class="text">产品</span></a></li><li class="hint-right is-original" data-app="project" data-hint="项目"><a data-pos="menu" data-app="project" href="/zentao/index.php?m=project&amp;f=browse" class="rounded show-in-app"><i class="icon icon-app-empty icon-project"></i><span class="text">项目</span></a></li><li class="hint-right is-original" data-app="execution" data-hint="执行"><a data-pos="menu" data-app="execution" href="/zentao/index.php?m=execution&amp;f=task" class="rounded show-in-app"><i class="icon icon-app-empty icon-run"></i><span class="text">执行</span></a></li><li class="hint-right is-original" data-app="qa" data-hint="测试"><a data-pos="menu" data-app="qa" href="/zentao/index.php?m=qa&amp;f=index" class="rounded show-in-app active"><i class="icon icon-app-empty icon-test"></i><span class="text">测试</span></a></li><li class="hint-right is-original" data-app="devops" data-hint="DevOps"><a data-pos="menu" data-app="devops" href="/zentao/index.php?m=repo&amp;f=browse" class="rounded show-in-app"><i class="icon icon-app-empty icon-devops"></i><span class="text font-brand">DevOps</span></a></li><li class="divider is-original"></li><li class="hint-right is-original" data-app="bi" data-hint="BI"><a data-pos="menu" data-app="bi" href="/zentao/index.php?m=screen&amp;f=browse" class="rounded show-in-app"><i class="icon icon-app-empty icon-statistic"></i><span class="text font-brand">BI</span></a></li><li class="divider is-original"></li><li class="hint-right is-original" data-app="doc" data-hint="文档"><a data-pos="menu" data-app="doc" href="/zentao/index.php?m=doc&amp;f=lastViewedSpace" class="rounded show-in-app"><i class="icon icon-app-empty icon-doc"></i><span class="text">文档</span></a></li><li class="divider is-original"></li><li class="hint-right is-original" data-app="system" data-hint="组织"><a data-pos="menu" data-app="system" href="/zentao/index.php?m=my&amp;f=team" class="rounded show-in-app"><i class="icon icon-app-empty icon-group"></i><span class="text">组织</span></a></li><li class="hint-right is-original" data-app="admin" data-hint="后台"><a data-pos="menu" data-app="admin" href="/zentao/index.php?m=admin&amp;f=index" class="rounded show-in-app"><i class="icon icon-app-empty icon-cog-outline"></i><span class="text">后台</span></a></li></ul><ul class="nav" id="menuMoreNav"><li class="divider"></li><li><a id="menuMoreBtn" title="更多" href="#menuMoreList" zui-toggle="dropdown" zui-toggle-dropdown="{&quot;placement&quot;:&quot;right-end&quot;,&quot;offset&quot;:12,&quot;shift&quot;:true}"><i class="icon icon-more-circle"></i><span class="text">更多</span></a><ul class="dropdown-menu menu scrollbar-light overflow-y-auto" id="menuMoreList"></ul></li></ul><ul class="nav" id="menuToggleNav"><li class="hint-right" id="menuToggleMenu" data-collapse-text="收起导航" data-hint="展开导航"><a class="menu-toggle justify-center cursor-pointer"><i class="icon icon-menu-collapse icon-sm"></i></a></li></ul></div></div><div id="apps"><div class="app-container" id="app-qa" style="z-index: 12;"><iframe id="appIframe-qa" name="app-qa" class="fade in" allowfullscreen="true" frameborder="no" allowtransparency="true" scrolling="auto"></iframe></div></div><div id="appsBar"><div id="visionSwitcher" data-vision="rnd"><button class="ghost btn" id="versionSwitchBtn" data-toggle="dropdown" zui-toggle-dropdown="{&quot;placement&quot;:&quot;top-start&quot;,&quot;target&quot;:&quot;#visionSwitchMenu&quot;,&quot;maxHeight&quot;:400,&quot;menu&quot;:{&quot;items&quot;:[]}}" type="button"><i class="icon icon-remote"></i><span class="text">研发综合界面</span><span class="caret-up"></span></button><div id="visionSwitchMenu" zui-create="" zui-create-visionswitchmenu="{&quot;visions&quot;:[{&quot;key&quot;:&quot;rnd&quot;,&quot;icon&quot;:&quot;remote&quot;,&quot;text&quot;:&quot;研发综合界面&quot;},{&quot;key&quot;:&quot;lite&quot;,&quot;icon&quot;:&quot;target&quot;,&quot;text&quot;:&quot;运营管理界面&quot;}],&quot;currentVision&quot;:&quot;rnd&quot;,&quot;spaces&quot;:[{&quot;key&quot;:&quot;product&quot;,&quot;icon&quot;:&quot;product&quot;,&quot;text&quot;:&quot;产品空间&quot;,&quot;fetcher&quot;:&quot;\/zentao\/index.php?m=product&amp;f=ajaxGetDropMenu&amp;productID=0&amp;module=product&amp;method=browse&amp;extra=story&quot;},{&quot;key&quot;:&quot;project&quot;,&quot;icon&quot;:&quot;project&quot;,&quot;text&quot;:&quot;项目空间&quot;,&quot;fetcher&quot;:&quot;\/zentao\/index.php?m=project&amp;f=ajaxGetDropMenu&amp;projectID=0&quot;},{&quot;key&quot;:&quot;execution&quot;,&quot;icon&quot;:&quot;run&quot;,&quot;text&quot;:&quot;执行空间&quot;,&quot;fetcher&quot;:&quot;\/zentao\/index.php?m=execution&amp;f=ajaxGetDropMenu&amp;objectID=0&quot;}],&quot;switchVisionText&quot;:&quot;切换工作界面&quot;,&quot;switchWorkspaceText&quot;:&quot;切换工作空间&quot;}" z-use-visionswitchmenu="" data-zui-visionswitchmenu="21" z-use="VisionSwitchMenu"><div class="vision-switch-menu flex-auto min-h-0 h-full not-hide-menu row items-stretch" style="min-height: 0px;"><div class="vision-vision-menu-main flex-none"><menu z-gid-23="" class="menu is-nested is-nested-root has-icons no-nested-items" z-level="0" style="--list-nested-indent: 0px; --list-indent: 20px;"><li class="menu-heading item" z-gid-24="" z-key="0" z-item="0" z-type="heading" z-key-path="0"><div key="item" class="listitem item-inner menu-heading-inner"><div class="item-content"><div class="item-title">切换工作界面</div></div></div></li><li class="menu-item item" z-gid-25="" z-key="rnd" z-item="1" z-type="item" z-key-path="rnd"><a key="item" class="listitem item-inner menu-item-inner selected state" href="javascript:;"><i class="icon item-icon icon-remote vision-icon"></i><div class="item-content"><div class="item-title">研发综合界面</div></div></a></li><li class="menu-item item" z-gid-26="" z-key="lite" z-item="2" z-type="item" z-key-path="lite"><a key="item" class="listitem item-inner menu-item-inner state" href="javascript:;"><i class="icon item-icon icon-target vision-icon"></i><div class="item-content"><div class="item-title">运营管理界面</div></div></a></li><li class="menu-heading item" z-gid-27="" z-key="3" z-item="3" z-type="heading" z-key-path="3"><div key="item" class="listitem item-inner menu-heading-inner"><div class="item-content"><div class="item-title">切换工作空间</div></div></div></li><li class="menu-item item" z-gid-28="" z-key="product" z-item="4" z-type="item" z-key-path="product"><a key="item" class="listitem item-inner menu-item-inner state" href="javascript:;"><i class="icon item-icon icon-product workspace-icon"></i><div class="item-content"><div class="item-title">产品空间</div></div><i class="icon item-trailing-icon icon-angle-right"></i></a></li><li class="menu-item item" z-gid-29="" z-key="project" z-item="5" z-type="item" z-key-path="project"><a key="item" class="listitem item-inner menu-item-inner state" href="javascript:;"><i class="icon item-icon icon-project workspace-icon"></i><div class="item-content"><div class="item-title">项目空间</div></div><i class="icon item-trailing-icon icon-angle-right"></i></a></li><li class="menu-item item" z-gid-30="" z-key="execution" z-item="6" z-type="item" z-key-path="execution"><a key="item" class="listitem item-inner menu-item-inner state" href="javascript:;"><i class="icon item-icon icon-run workspace-icon"></i><div class="item-content"><div class="item-title">执行空间</div></div><i class="icon item-trailing-icon icon-angle-right"></i></a></li></menu></div></div></div></div><ul class="nav" id="appTabs"><li class="nav-item active" data-app="qa" id="appTab-qa"><a data-pos="tab" data-app="qa" class="show-in-app active"><span class="text">测试</span></a></li></ul><div class="toolbar space-x-1" id="appsToolbar"><div class="w-44" id="globalSearch" zui-create="" zui-create-globalsearch="{&quot;items&quot;:[{&quot;key&quot;:&quot;search&quot;,&quot;text&quot;:&quot;搜索 {0}&quot;},{&quot;key&quot;:&quot;bug&quot;,&quot;text&quot;:&quot;Bug #{0}&quot;},{&quot;key&quot;:&quot;story&quot;,&quot;text&quot;:&quot;研发需求 #{0}&quot;},{&quot;key&quot;:&quot;epic&quot;,&quot;text&quot;:&quot;业务需求 #{0}&quot;},{&quot;key&quot;:&quot;task&quot;,&quot;text&quot;:&quot;任务 #{0}&quot;},{&quot;key&quot;:&quot;testcase&quot;,&quot;text&quot;:&quot;用例 #{0}&quot;},{&quot;key&quot;:&quot;product&quot;,&quot;text&quot;:&quot;产品 #{0}&quot;},{&quot;key&quot;:&quot;build&quot;,&quot;text&quot;:&quot;构建 #{0}&quot;},{&quot;key&quot;:&quot;release&quot;,&quot;text&quot;:&quot;发布 #{0}&quot;},{&quot;key&quot;:&quot;productplan&quot;,&quot;text&quot;:&quot;产品计划 #{0}&quot;},{&quot;key&quot;:&quot;testtask&quot;,&quot;text&quot;:&quot;测试单 #{0}&quot;},{&quot;key&quot;:&quot;doc&quot;,&quot;text&quot;:&quot;文档 #{0}&quot;},{&quot;key&quot;:&quot;caselib&quot;,&quot;text&quot;:&quot;用例库 #{0}&quot;},{&quot;key&quot;:&quot;testreport&quot;,&quot;text&quot;:&quot;测试报告 #{0}&quot;},{&quot;key&quot;:&quot;project&quot;,&quot;text&quot;:&quot;项目 #{0}&quot;},{&quot;key&quot;:&quot;execution&quot;,&quot;text&quot;:&quot;执行 #{0}&quot;},{&quot;key&quot;:&quot;user&quot;,&quot;text&quot;:&quot;用户 #{0}&quot;},{&quot;key&quot;:&quot;aiapp&quot;,&quot;text&quot;:&quot;AI #{0}&quot;}],&quot;searchHint&quot;:&quot;搜索&quot;,&quot;popPlacement&quot;:&quot;top-start&quot;,&quot;popWidth&quot;:240,&quot;searchBox&quot;:{&quot;circle&quot;:true,&quot;prefixClass&quot;:&quot;text-primary opacity-100&quot;,&quot;className&quot;:&quot;size-md&quot;},&quot;getSearchType&quot;:window.getGlobalSearchType,&quot;onSearch&quot;:window.handleGlobalSearch}" z-use-globalsearch="" data-zui-globalsearch="22" z-use="GlobalSearch"><div id="pick-_pick33" class="pick global-search-pick" tabindex="-1"><div class="search-box input-control empty has-prefix-icon"><label for="search-box-34" class="input-control-prefix text-primary opacity-100"><span class="magnifier"></span></label><input id="search-box-34" type="text" class="form-control rounded-full size-md" placeholder="搜索"></div></div></div><div id="chat-btn-container"><button class="ghost px-1 btn" id="chat-btn" onclick="window.toggleChatContainer()" type="button"><i><img src="static/svg/chat.svg"></i><span class="badge bg-danger text-white notice-badge"></span></button></div><a class="toolbar-item ghost btn-zentao px-1 btn btn-default" id="version" title="22.2" href="https://www.zentao.net" target="_blank"><i class="icon icon-zentao text-2xl"></i><span class="text">开源版22.2</span></a><button class="ghost btn" id="bizLink" type="button" data-target="_blank" zui-init="$element.off('.zin.on');$element.on('click.zin.on',function(event,args){
+const $this = $(this);
+const target = event.target;
+$('#upgradeContent').toggle();
+$('#bizLink').toggleClass('active', $('#upgradeContent').prop('style') &amp;&amp; $('#upgradeContent').prop('style').display != 'none');
+event.preventDefault();;
+});" z-zui-inited=""><span class="upgrade">升级</span><i class="icon icon-up-circle text-danger"></i></button><div class="panel rounded ring-0 bg-canvas shadow" id="upgradeContent"><div class="panel-heading border-b justify-start items-center gap-1"><i class="version-upgrade" id="versionTitle"></i><span>可升级版本</span></div><div class="panel-body p-0"><div class="p-4" id="latestVersionList"><div class="version-content"></div></div></div></div></div></div><script>;(function(){window.enableAITeammate = false;}());</script><script class="zin-page-js" data-id="index-index">;(function(){zui.defineFn();
+function setInterval(callback, time){return typeof window.registerTimer === "function" ? window.registerTimer(callback, time, "interval") : window.setInterval(callback, time);};(function(){if(zui.VisionSwitchMenu) return;
+
+const {Component, ReactComponent, ComponentFromReact, jsx, signal, computed} = zui;
+const {Menu, DropmenuPop} = zui.reactComponents;
+const emptyFn = () => {};
+
+if(!DropmenuPop) return;
+
+class WorkspaceMenuJSX extends DropmenuPop
+{
+    componentDidMount()
+    {
+        super.componentDidMount();
+        $(this.base).closest('.vision-workspace-menu').toggleClass('is-expanded', !!this.state.expanded);
+    }
+
+    render(props)
+    {
+        return this._renderPop(props);
+    }
+
+    _getData()
+    {
+        const data = super._getData();
+        if (this.state.active === undefined && !data.activeTab.items.length)
+        {
+            const tab = data.tabs.find(x => x.items.length);
+            if(tab) data.activeTab = tab;
+        }
+        return data;
+    }
+
+    _handleItemClick = (info) =>
+    {
+        const $target = $(info.event.target);
+        if ($target.closest('.tree-toggle').length || !$target.closest('.is-link').length) return;
+
+        info.event.preventDefault();
+        window.enterWorkspace(info.renderedItem['data-type'], info.renderedItem['data-url']);
+        zui.Dropdown.query('#versionSwitchBtn').hide();
+    };
+
+    expand = (expand) =>
+    {
+        const newExpand = typeof expand === 'undefined' ? !this.state.expanded : expand;
+        this.setState({expanded: newExpand});
+        $(this.base).closest('.vision-workspace-menu').toggleClass('is-expanded', !!newExpand);
+    };
+}
+
+class VisionSwitchMenuJSX extends ReactComponent
+{
+    spaceType$ = signal('');
+
+    hidden$ = signal(false);
+
+    spcae$ = computed(() =>
+    {
+        const spaces = this.props.spaces;
+        if(!spaces || !spaces.length) return null;
+        const spaceType = this.spaceType$.value;
+        if(!spaceType) return null;
+        return spaces.find(space => space.key === spaceType);
+    });
+
+    _minHeight = 0;
+
+    constructor(props)
+    {
+        super(props);
+        this.spaceType$.value = props.currentSpace || '';
+    }
+
+    componentDidMount()
+    {
+        $('#versionSwitchBtn').on('show.visionSwitchMenu', () => {
+            this.hidden$.value = false;
+        }).on('hide.visionSwitchMenu', () => {
+            this.hidden$.value = true;
+        });
+    }
+
+    componentWillUnmount()
+    {
+        $('#versionSwitchBtn').off('.visionSwitchMenu');
+    }
+
+    componentWillUpdate()
+    {
+        this._minHeight = Math.max(this._minHeight, $(this.base).height());
+    }
+
+    _handleClickVision(vision)
+    {
+        window.selectVision(vision);
+    }
+
+    _handleClickWorkspace(spaceType)
+    {
+        this.spaceType$.value = spaceType;
+    }
+
+    _renderMenu(props)
+    {
+        const {visions, currentVision, spaces, switchVisionText, switchWorkspaceText} = props;
+        const items = [{type: 'heading', text: switchVisionText}];
+        visions.forEach(vision => items.push({
+            key     : vision.key,
+            text    : vision.text,
+            selected: vision.key === currentVision,
+            icon    : `${vision.icon} vision-icon`,
+            onClick : () => this._handleClickVision(vision.key),
+        }));
+
+        if(spaces.length)
+        {
+            const currentSpace = this.spaceType$.value;
+            items.push({type: 'heading', text: switchWorkspaceText});
+            spaces.forEach(space => items.push({
+                key     : space.key,
+                text    : space.text,
+                selected: space.key === currentSpace,
+                icon    : `${space.icon} workspace-icon`,
+                trailingIcon: 'icon-angle-right',
+                onClick : () => this._handleClickWorkspace(space.key),
+            }));
+        }
+
+        return jsx`<div class="vision-vision-menu-main flex-none"><${Menu} items=${items} /></div>`;
+    }
+
+    _renderWorkspace(props)
+    {
+        const space = this.spcae$.value;
+        const hidden = this.hidden$.value;
+        if(!space || hidden) return null;
+
+        const url   = space.fetcher || $.createLink(space.key, 'ajaxGetDropMenu', `${space.key}ID=0`);
+        const state = {value: '', data: {search: false}};
+        return jsx`<div class="vision-workspace-menu border-l"><${WorkspaceMenuJSX} key=${space.key} fetcher=${url} state=${state} togglePop=${emptyFn} searchBox=${false} /></div>`;
+    }
+
+    render(props)
+    {
+        return jsx`<div class="vision-switch-menu flex-auto min-h-0 h-full not-hide-menu row items-stretch" style="min-height: ${this._minHeight}px;">
+          ${this._renderMenu(props)}
+          ${this._renderWorkspace(props)}
+        </div>`;
+    }
+}
+
+class VisionSwitchMenu extends ComponentFromReact
+{
+    static NAME = 'VisionSwitchMenu';
+
+    static Component = VisionSwitchMenuJSX;
+}
+
+zui.VisionSwitchMenu = VisionSwitchMenu;
+VisionSwitchMenu.register();;}());
+;(function(){/**
+ * Get the search Type according to the current module and the current method.
+ *
+ * @access public
+ * @return string
+ */
+window.getGlobalSearchType = function()
+{
+    if(vision == 'lite') return 'story';
+
+    const appInfo = $.apps.getLastApp();
+    if(!appInfo) return;
+
+    const pageWindow = appInfo.iframe.contentWindow;
+    if(pageWindow.globalSearchType)
+    {
+        if(typeof pageWindow.globalSearchType === 'function') return pageWindow.globalSearchType();
+        return pageWindow.globalSearchType;
+    }
+
+    const moduleName = pageWindow.config.rawModule;
+    const methodName = pageWindow.config.rawMethod;
+
+    if(moduleName == 'product' && methodName == 'browse') return 'story';
+    if(moduleName == 'my' || moduleName == 'user') return methodName;
+
+    const projectMethod = 'task|story|bug|build';
+    if(moduleName == 'project' && projectMethod.indexOf(methodName) != -1) return methodName;
+    if(moduleName == 'execution' && projectMethod.indexOf(methodName) != -1) return methodName;
+
+    if(!this.props.items.some(x => x.key === moduleName)) return 'bug';
+
+    if(moduleName == 'search') return '';
+    return moduleName;
+}
+
+function getSearchUrl(searchType, searchValue, callback)
+{
+    if(typeof searchValue !== 'string') return;
+    searchValue = searchValue.trim();
+    if(!searchValue.length) return;
+
+    let searchUrl = $.createLink('search', 'index');
+    searchUrl += (searchUrl.indexOf('?') >= 0 ? '&' : '?') + 'words=' + encodeURIComponent(searchValue) + '&type=all';
+    if(!searchType || searchType == 'all' || searchType == 'search' || /[^0-9]/.test(searchValue)) return callback(searchUrl);
+
+    const types = searchType.split('-');
+    const searchModule = types[0];
+    const searchMethod = typeof(types[1]) == 'undefined' ? 'view' : types[1];
+    searchUrl = $.createLink(searchModule, searchMethod, "id=" + searchValue);
+    const assetType = ',story,issue,risk,opportunity,doc,';
+
+    if(edition != 'max' || assetType.indexOf(',' + searchModule + ',') == -1) return callback(searchUrl);
+
+    const link = $.createLink('index', 'ajaxGetViewMethod' , 'objectID=' + searchValue + '&objectType=' + searchModule);
+    $.get(link, function(data)
+    {
+        if(data)
+        {
+            callback($.createLink('assetlib', data, "id=" + searchValue));
+        }
+        else
+        {
+            return callback(searchUrl);
+        }
+    });
+}
+
+window.handleGlobalSearch = function(type, search)
+{
+    if(type == 'program')    type = 'program-product';
+    if(type == 'deploystep') type = 'deploy-viewstep';
+    if(type == 'feedback' && vision != 'lite') type = 'feedback-adminView';
+
+    getSearchUrl(type, search, searchUrl => openPage(searchUrl, null, {success: function(data)
+    {
+        if(data && typeof data === 'object' && !Array.isArray(data) && data.load && typeof data.load === 'object' && data.load.locate) data.load.locate = null;
+    }}));
+};;}());
+;(function(){window.toggleChatContainer = () =>
+{
+    if(window.xuan) window.xuan[window.xuan.shown ? 'expand' : 'show']();
+    $('#chat-btn').toggleClass('active');
+    $('#chat-container').toggle();
+    $('#xuan-chat-view').toggle();
+};
+
+/* Setup xuan web chat. */
+window.setupXuan = () =>
+{
+    if(!window.xuan)
+    {
+        window.initXuan();
+        return;
+    }
+
+    /* Move xuan web client into #xuan-chat-view. */
+    if(!document.querySelector('#xuan-chat-view #xx-embed-container'))
+    {
+        document.querySelector('#xuan-chat-view').prepend(document.querySelector('#xx-embed-container'));
+
+        /* Set style into xuan frame. */
+        let tries = 0;
+        const xuanFrameWaitLoop = setInterval(function()
+        {
+            if(document.querySelector('#xx-embed-container iframe'))
+            {
+                clearInterval(xuanFrameWaitLoop);
+                tries = 0;
+                const chatsViewWaitLoop = setInterval(function()
+                {
+                    if(document.querySelector('#xx-embed-container iframe').contentDocument.querySelector('.app-chats-menu'))
+                    {
+                        clearInterval(chatsViewWaitLoop);
+                        document.querySelector('#xx-embed-container iframe').contentDocument.querySelector('.app-chats-menu').style.cssText = 'width: 330px !important;';
+                        document.querySelector('#xx-embed-container iframe').contentDocument.querySelector('.app-chats-cache').style.cssText = 'right: 330px !important;';
+                    }
+                    else
+                    {
+                        if(++tries > 20) clearInterval(chatsViewWaitLoop);
+                    }
+                }, 200);
+            }
+            else
+            {
+                if(++tries > 20) clearInterval(xuanFrameWaitLoop);
+            }
+        }, 200);
+    }
+};
+(() =>
+{
+    /* Insert chat views. */
+    $('body').append(`<div id="chat-container">
+    <div id="xuan-chat-view">
+        <div class="unconfigured text-gray">尚未配置 聊天 功能，请联系管理员进行功能配置。</div>
+    </div>
+</div>`);
+
+    /* Handle clicking outside. */
+    $(document).on('click', e =>
+    {
+        if(!$('#chat-container').length || $('#chat-container').prop('style') && $('#chat-container').prop('style').display !== 'block') return;
+        if($(e.target).closest('#chat-switch,#xuan-chat-view>.unconfigured,#ai-chat-view,#chat-btn').length) return;
+        window.toggleChatContainer();
+    });
+})();;}());
+const scoreNotice = "";
+const edition = "open";
+const vision = "rnd";
+const navGroup = {"my":"my","effort":"my","score":"my","todo":"my","contact":"my","personalsettings":"my","program":"program","personnel":"program","programstakeholder":"program","product":"product","productplan":"product","release":"product","branch":"product","epic":"product","story":"product","requirement":"product","productsettings":"product","project":"project","deploy":"devops","programplan":"project","design":"project","stakeholder":"project","projectsettings":"project","projectreview":"project","projecttrack":"project","projectqa":"project","projectbuild":"project","projectstory":"project","projectplan":"project","review":"project","reviewissue":"project","pssp":"project","auditplan":"project","cm":"project","nc":"project","projectrelease":"project","milestone":"project","researchplan":"project","workestimation":"project","gapanalysis":"project","execution":"execution","task":"execution","build":"execution","team":"execution","executionview":"execution","executiongantt":"execution","executionkanban":"execution","executionburn":"execution","executioncfd":"execution","executionstory":"execution","executionqa":"execution","executionsettings":"execution","managespace":"kanban","kanbanspace":"kanban","kanban":"kanban","kanbanregion":"kanban","kanbanlane":"kanban","kanbancolumn":"kanban","kanbancard":"kanban","doc":"doc","doclib":"doc","api":"doc","screen":"bi","pivot":"bi","chart":"bi","bidesign":"bi","report":"bi","metric":"bi","qa":"qa","bug":"qa","testcase":"qa","testtask":"qa","zahost":"qa","zanode":"qa","testreport":"qa","testsuite":"qa","caselib":"qa","devops":"devops","repo":"devops","repo_setRules":"admin","job":"devops","jenkins":"devops","mr":"devops","gitlab":"devops","gogs":"devops","gitea":"devops","sonarqube":"devops","sonarqubeproject":"devops","compile":"devops","ci":"devops","svn":"devops","git":"devops","app":"devops","pipeline":"devops","devopssetting":"devops","space":"devops","store":"devops","instance":"devops","host":"devops","company":"system","systemteam":"system","systemschedule":"system","systemeffort":"system","systemdynamic":"system","systemcompany":"system","dataaccess":"system","attend":"attend","leave":"attend","makeup":"attend","overtime":"attend","lieu":"attend","admin":"admin","dept":"admin","user":"admin","group":"admin","webhook":"admin","sms":"admin","message":"admin","custom":"admin","cron":"admin","backup":"admin","mail":"admin","dev":"admin","editor":"admin","entry":"admin","extension":"admin","action":"admin","convert":"admin","stage":"admin","deliverable":"admin","featureswitch":"admin","importdata":"admin","systemsetting":"admin","staffmanage":"admin","modelconfig":"admin","featureconfig":"admin","doctemplate":"admin","notifysetting":"admin","holidayseason":"admin","system":"system","serverroom":"devops","holiday":"admin","cache":"admin","aiapp":"aiapp","index":"index","misc":"misc","upgrade":"upgrade","im":"admin","setting":"admin","client":"admin","conference":"admin","watermark":"admin"};
+const appNotFound = "无权访问该应用，请检查权限设置。";
+const oldPages = ["screen-burn","screen-viewold","screen-staticdataold","report-annualdata","api-debug","datatable-ajaxoldcustom","kanban-importticket","message-ajaxgetdropmenuforold","product-ajaxgetolddropmenu","project-ajaxgetolddropmenu"];
+const allAppsItems = [{"group":"my","code":"my","active":false,"title":"<i class='icon icon-menu-my'><\/i> 地盘","moduleName":"my","methodName":"index","vars":"","url":"\/zentao\/index.php?m=my&f=index"},{"group":"product","code":"product","active":false,"title":"<i class='icon icon-product'><\/i> 产品","moduleName":"product","methodName":"all","vars":"","url":"\/zentao\/index.php?m=product&f=all"},{"group":"project","code":"project","active":false,"title":"<i class='icon icon-project'><\/i> 项目","moduleName":"project","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=project&f=browse"},{"group":"execution","code":"execution","active":false,"title":"<i class='icon icon-run'><\/i> 执行","moduleName":"execution","methodName":"task","vars":"","url":"\/zentao\/index.php?m=execution&f=task"},{"group":"qa","code":"qa","active":false,"title":"<i class='icon icon-test'><\/i> 测试","moduleName":"qa","methodName":"index","vars":"","url":"\/zentao\/index.php?m=qa&f=index"},{"group":"devops","code":"devops","active":false,"title":"<i class='icon icon-devops'><\/i> DevOps","moduleName":"repo","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=repo&f=browse"},"divider",{"group":"bi","code":"bi","active":false,"title":"<i class='icon icon-statistic'><\/i> BI","moduleName":"screen","methodName":"browse","vars":"","url":"\/zentao\/index.php?m=screen&f=browse"},"divider",{"group":"doc","code":"doc","active":false,"title":"<i class='icon icon-doc'><\/i> 文档","moduleName":"doc","methodName":"lastViewedSpace","vars":"","url":"\/zentao\/index.php?m=doc&f=lastViewedSpace"},"divider",{"group":"system","code":"system","active":false,"title":"<i class='icon icon-group'><\/i> 组织","moduleName":"my","methodName":"team","vars":"","url":"\/zentao\/index.php?m=my&f=team"},{"group":"admin","code":"admin","active":false,"title":"<i class='icon icon-cog-outline'><\/i> 后台","moduleName":"admin","methodName":"index","vars":"","url":"\/zentao\/index.php?m=admin&f=index"}];
+const isTutorialMode = false;
+const defaultOpen = "\/zentao\/index.php?m=testcase&f=browse&productID=1";
+const manualText = "手册";
+const manualUrl = "https:\/\/www.zentao.net\/book\/zentaopms\/38.html?fullScreen=zentao&theme=default";
+const langData = {"search":"搜索","searchAB":"搜索","open":"打开","reload":"刷新","close":"关闭","sort":"排序","save":"退出排序","hide":"隐藏","add":"添加","divider":"分割线","restore":"恢复默认"};
+const browserMessage = {"turnon":1,"pollTime":300};
+const pollTime = 300;
+const turnon = 1;
+const runnable = false;
+const showFeatures = true;
+    window.getUserVisions = () => 'rnd,lite'.split(',');
+    window.getCurrentVision = () => 'rnd';
+    window.getSearchItems = () => JSON.parse(`[{"key":"search","text":"\u641c\u7d22 {0}"},{"key":"bug","text":"Bug #{0}"},{"key":"story","text":"\u7814\u53d1\u9700\u6c42 #{0}"},{"key":"epic","text":"\u4e1a\u52a1\u9700\u6c42 #{0}"},{"key":"task","text":"\u4efb\u52a1 #{0}"},{"key":"testcase","text":"\u7528\u4f8b #{0}"},{"key":"product","text":"\u4ea7\u54c1 #{0}"},{"key":"build","text":"\u6784\u5efa #{0}"},{"key":"release","text":"\u53d1\u5e03 #{0}"},{"key":"productplan","text":"\u4ea7\u54c1\u8ba1\u5212 #{0}"},{"key":"testtask","text":"\u6d4b\u8bd5\u5355 #{0}"},{"key":"doc","text":"\u6587\u6863 #{0}"},{"key":"caselib","text":"\u7528\u4f8b\u5e93 #{0}"},{"key":"testreport","text":"\u6d4b\u8bd5\u62a5\u544a #{0}"},{"key":"project","text":"\u9879\u76ee #{0}"},{"key":"execution","text":"\u6267\u884c #{0}"},{"key":"user","text":"\u7528\u6237 #{0}"},{"key":"aiapp","text":"AI #{0}"}]`);
+/* Init variables */
+const apps =
+{
+    /** @type {Record<string, ZentaoApp>} */
+    map: {},
+    /** @type {Record<string, ZentaoOpenedApp>} */
+    openedMap: {},
+    defaultCode: '',
+    zIndex: 10,
+    frameContent: null,
+    theme: null,
+    oldPages: new Set(oldPages)
+};
+
+const DEBUG = config.debug;
+
+function getUrlID(url)
+{
+    const info = $.parseLink(url);
+    return info.moduleName ? `${info.moduleName}-${info.methodName}` : '';
+}
+
+function showLog(code, name, moreTitles, trace, moreInfos)
+{
+    const titles = ['%c HOME '];
+    const titleColors = ['color:#fff;font-weight:bold;background:#009688'];
+    if(code)
+    {
+        titles.push(`%c ${code} `);
+        titleColors.push('background:rgba(0,150,136,0.2);color:#009688;');
+    }
+    if(name)
+    {
+        titles.push(`%c ${name} `);
+        titleColors.push('color:#009688;font-weight:bold;');
+    }
+    if(!Array.isArray(moreTitles)) moreTitles = [moreTitles];
+    if(typeof moreTitles[0] === 'string' && (moreTitles[0].startsWith('success:') || moreTitles[0].startsWith('error:')))
+    {
+        const message = moreTitles.shift();
+        const [type, content] = message.split(':', 2);
+        titles.push(`%c ${content} `);
+        titleColors.push(`color:${type === 'error' ? '#f56c6c' : '#67c23a'};`);
+    }
+    if(trace || moreInfos)
+    {
+        console.groupCollapsed(titles.join(''), ...titleColors, ...moreTitles);
+        if(trace) console.trace(trace);
+        if(moreInfos)
+        {
+            if($.isPlainObject(moreInfos)) Object.keys(moreInfos).forEach((infoName) => console.log(infoName, moreInfos[infoName]));
+            else console.log(moreInfos);
+        }
+        console.groupEnd();
+    }
+    else
+    {
+        console.log(titles.join(''), ...titleColors, ...moreTitles);
+    }
+}
+
+function triggerAppEvent(code, event, args, options)
+{
+    const app = apps.openedMap[code];
+    if(!app) return;
+
+    event = event.includes('.') ? event : `${event}.apps`;
+    if(DEBUG && (!options || options.silent !== true)) showLog(code, 'Event', event, {args});
+    if(!Array.isArray(args)) args = [args];
+    if(app.$app) app.$app.trigger(event, args);
+    try
+    {
+        const iframeWindow = app.iframe && app.iframe.contentWindow;
+        if(iframeWindow) return iframeWindow.$(iframeWindow.document).trigger(event, args);
+    }
+    catch(e){}
+}
+
+function isOldPage(url)
+{
+    if(typeof url !== 'object') url = $.parseLink(url);
+    return apps.oldPages.has(url.moduleName.toLowerCase()) || apps.oldPages.has(`${url.moduleName}-${url.methodName}`.toLowerCase());
+}
+
+/**
+ * 提取纯文本标签（去除 HTML 标签）
+ * @param {string} html
+ * @returns {string}
+ */
+function extractLabelText(html)
+{
+    return html.replace(/<[^>]*>/g, '').trim();
+}
+
+/**
+ * 获取所有应用列表。
+ * @returns {Array<{id: string, label: string, active: boolean}>}
+ */
+function getApps()
+{
+    const lastAppCode = getLastAppCode();
+    return Array.from(allAppsItemsMap.values()).map(app => ({
+        id: app.code,
+        label: extractLabelText(window.appsItems.find(item => item.code === app.code)?.title),
+        active: lastAppCode === app.code
+    }));
+}
+
+/**
+ * 获取所有可见的应用列表。
+ * @returns {Array<{id: string, label: string, active: boolean}>}
+ */
+function getVisibleApps()
+{
+    const $mainNav = $('#menuMainNav');
+    return getApps().filter(app => {
+        const $menuItem = $mainNav.find(`li[data-app="${app.id}"]`);
+        return $menuItem.length > 0 && !$menuItem.is('[data-hidden="1"]');
+    });
+}
+
+/**
+ * 获取所有已打开的应用列表。
+ * @returns {Array<{id: string, label: string, active: boolean}>}
+ */
+function getOpenedApps()
+{
+    const lastAppCode = getLastAppCode();
+    return Object.values(apps.openedMap).map(app => ({
+        id: app.code,
+        label: extractLabelText(window.appsItems.find(item => item.code === app.code)?.title),
+        active: app.code === lastAppCode
+    }));
+}
+
+/**
+ * 触发 onChangeApp 回调函数。
+ */
+function changeApp()
+{
+    const callback = window.zinCallbacks.onChangeApp;
+    if(typeof callback === 'function')
+    {
+        try { callback(getVisibleApps(), getOpenedApps()); } catch (e) { console.error('[ZIN] onChangeApp callback error:', e); }
+    }
+}
+
+/**
+ * Open app
+ * @param {string} url
+ * @param {string|object} [code]
+ * @param {boolean|object} [options]
+ * @returns {ZentaoOpenedApp|undefined}
+ */
+function openApp(url, code, options)
+{
+    if(!apps.frameContent)
+    {
+        setTimeout(() => {openApp(url, code, options);}, 100);
+        return;
+    }
+    const loadOptions = {};
+    if(typeof code === 'object') $.extend(loadOptions, code);
+    else if(code) loadOptions.code = code;
+    if(typeof options === 'boolean') loadOptions.forceReload = options;
+    else if(typeof options === 'object') $.extend(loadOptions, options);
+    options = loadOptions;
+    code = options.code;
+    let forceReload = options.forceReload !== false;
+    delete options.forceReload;
+    delete options.code;
+
+    if(!code)
+    {
+        if(apps.map[url])
+        {
+            code = url;
+            url  = '';
+        }
+        else if(url)
+        {
+            url  = url.replace('http:', window.location.protocol).replace('https:', window.location.protocol);
+            code = getAppCode(url);
+        }
+        if(!code) return openApp('my');
+    }
+
+    const app = apps.map[code];
+    if(!app)
+    {
+        if(DEBUG) showLog(code, 'APP NOT FOUND!', url, options);
+        return zui.Modal.alert(appNotFound);
+    }
+
+    let openedApp = apps.openedMap[code];
+    if($.apps.workspace && $.apps.workspace !== code)
+    {
+        url = url || (openedApp ? openedApp.currentUrl : app.url);
+        if(url) window.open(url, '_blank');
+        return;
+    }
+
+    /* Create iframe for app */
+    if(!openedApp)
+    {
+        if(!url) url = app.url;
+        openedApp = $.extend({opened: true, url: url, zIndex: ++apps.zIndex, currentUrl: url}, app);
+        forceReload = false;
+        apps.openedMap[code] = openedApp;
+
+        const $iframe =
+        $([
+            '<iframe',
+                'id="appIframe-' + code + '"',
+                'name="app-' + code + '"',
+                'class="fade"',
+                'allowfullscreen="true"',
+                app.external ? 'src="' + url + '"' : '',
+                'frameborder="no"',
+                'allowtransparency="true"',
+                'scrolling="auto"',
+            '/>'
+        ].join(' '));
+        const iframe = $iframe[0];
+        openedApp.iframe = iframe;
+        openedApp.$app = $('<div class="app-container loading" id="app-' + code + '"></div>')
+            .append($iframe)
+            .appendTo('#apps');
+
+        const finishLoad = () =>
+        {
+            $iframe.removeClass('loading').addClass('in');
+            setTimeout(() => {openedApp.$app.removeClass('loading');}, 300);
+        };
+        if(app.external)
+        {
+            $iframe.on('ready.app', () =>{openApp(url, code, options);});
+        }
+        else
+        {
+            const writeToDoc = () => {
+                iframe.contentDocument.open();
+                const html = apps.frameContent.replace('window.defaultAppUrl = ""', `window.defaultAppUrl = "${url}"`);
+                iframe.contentDocument.write(html);
+                iframe.contentDocument.close();
+            };
+            if(!iframe.contentDocument.body.children.length) setTimeout(() => writeToDoc(), 500);
+        }
+        iframe.onload = iframe.onreadystatechange = function(e)
+        {
+            try
+            {
+                iframe.contentWindow.$(iframe.contentDocument).one('pageload.app pagecaheload.app', finishLoad);
+                setTimeout(finishLoad, 10000);
+            }
+            catch(e){finishLoad()}
+            triggerAppEvent(openedApp.code, 'loadapp', [openedApp, e]);
+        };
+        openedApp.$app.show().css('z-index', openedApp.zIndex);
+    }
+    if(!url) url = openedApp.currentUrl;
+
+    /* Set tab cookie */
+    $.cookie.set('tab', code, {expires: config.cookieLife, path: config.webRoot});
+
+    /* Highlight on left menu */
+    if(!openedApp.workspace)
+    {
+        const $menuNav  = $('#menuMainNav,#menuMoreNav');
+        const $lastItem = $menuNav.find('li>a.active');
+        if($lastItem.data('app') !== code)
+        {
+            $lastItem.removeClass('active');
+            $menuNav.find('li[data-app="' + code + '"]>a').addClass('active');
+            openedApp.$app.trigger('showapp', openedApp);
+        }
+    }
+
+    /* Show and load app */
+    const isSameUrl = $.parseLink(openedApp.currentUrl).url === $.parseLink(url).url;
+    const needLoad = !isSameUrl || forceReload !== false;
+    if(needLoad)
+    {
+        const openFromHidden = openedApp.zIndex < apps.zIndex;
+        reloadApp(code, url, openFromHidden ? $.extend({loadingIndicatorDelay: '0s'}, options) : options);
+        openedApp.$app.toggleClass('open-from-hidden', openFromHidden);
+    }
+    else
+    {
+        updateApp(code, url, openedApp.currentTitle, 'show');
+    }
+
+    $('body').attr('data-app', code);
+    openedApp.zIndex = ++apps.zIndex;
+    openedApp.$app.show().css('z-index', openedApp.zIndex);
+    openedApp.getPageInfo = () => {
+        const getPageInfo = openedApp.iframe.contentWindow.getPageInfo;
+        return getPageInfo ? getPageInfo() : null;
+    };
+    openedApp.getPerfData = () => {
+        const getPerfData = openedApp.iframe.contentWindow.getPerfData;
+        return getPerfData ? getPerfData() : null;
+    };
+
+    /* Update on app tabs bar */
+    const $tabs = $('#appTabs');
+    let $tabItem  = $('#appTab-' + code);
+    if(!$tabItem.length)
+    {
+        if (app.text === undefined) return false;
+        const $link= $('<a data-pos="tab"></a>')
+            .attr('data-app', code)
+            .addClass('show-in-app')
+            .append($('<span class="text"></span>').text(app.text));
+        $tabItem = $('<li class="nav-item"></li>')
+            .attr({'data-app': code, id: 'appTab-' + code})
+            .append($link)
+            .appendTo($tabs);
+        openedApp.$bar = $tabItem;
+    }
+    const $lastTab = $tabs.find('li>a.active');
+    if($lastTab.data('app') !== code)
+    {
+        $lastTab.removeClass('active').parent().removeClass('active');
+        $tabs.find('li[data-app="' + code + '"]>a').addClass('active').parent().addClass('active');
+    }
+
+    if(DEBUG) showLog(code, 'Open', getUrlID(url), openedApp, {options, forceReload, needLoad});
+    triggerAppEvent(code, 'openapp', [openedApp, {load: needLoad}]);
+
+    changeApp();
+
+    const spaceType = openedApp.workspace ? openedApp.workspace.type : '';
+    if(spaceType !== $('#menu').attr('data-space')) updateSpaceMenu(openedApp.workspace);
+
+    return openedApp;
+}
+
+/**
+ * Show app
+ * @param {string} code
+ */
+function showApp(code)
+{
+    return openApp('', code, false);
+}
+
+/**
+ * Reload app
+ * @param {string} code
+ * @param {string} url
+ * @param {object} options
+ */
+function reloadApp(code, url, options)
+{
+    const app = apps.openedMap[code];
+    if(!app) return;
+
+    if(url === true) url = app.url;
+    else if(!url) url = app.currentUrl;
+
+    const iframe = app.iframe;
+    try
+    {
+        if(app.external) iframe.src = url;
+        else if(iframe.contentWindow.loadPage) iframe.contentWindow.loadPage(url, $.extend({updateHeading: true}, options));
+        else if(DEBUG) showLog(code, 'Reload', 'error:Cannot load page when iframe is not ready.', {options});
+        else console.error('[APPS]', 'Reload failed: Cannot load page when iframe is not ready.');
+    }
+    catch(error)
+    {
+        iframe.src = url;
+    }
+
+    app.currentUrl = url;
+
+    changeApp();
+}
+
+function updateApp(code, url, title, type)
+{
+    const app = apps.openedMap[code];
+    if(!app || app.external) return;
+
+    const state     = typeof code === 'object' ? code : {code: code, url: url, title: title, type: type};
+    const prevState = window.history.state;
+    const urlInfo   = $.parseLink(state.url);
+
+    state.prev  = prevState;
+    state.index = prevState ? prevState.index + 1 : 1;
+    state.path  = urlInfo.methodName ? `${urlInfo.moduleName}-${urlInfo.methodName}` : '';
+
+    if(title)
+    {
+        document.title   = title;
+        app.currentTitle = title;
+    }
+
+    if(prevState && prevState.code === code && prevState.url === url) return prevState;
+
+    app.currentUrl = url;
+    const urlParts = url.split('#');
+    const hash = urlParts.length > 1 ? urlParts[1] : '';
+    const browserUrl = getAppCode(urlParts[0]) !== code ? `${urlParts[0]}#${hash.length ? `${hash}&` : ''}app=${code}` : url;
+    window.history.pushState(state, title, browserUrl);
+    zui.store.session.set('lastOpenApp', {code, url});
+    triggerAppEvent(code, 'updateapp', [code, url, title, type]);
+    if(DEBUG) showLog(code, 'Update', title || getUrlID(url), state, {url, title, type});
+    return state;
+}
+
+/**
+ * Get last opened app
+ * @returns {object} The opened app info object
+ */
+function getLastApp()
+{
+    let lastShowIndex = 0;
+    let lastApp = null;
+    $.each(apps.openedMap, function(_code, app)
+    {
+        if(lastShowIndex < app.zIndex && !app.closed)
+        {
+            lastShowIndex = app.zIndex;
+            lastApp = app;
+        }
+    });
+    return lastApp;
+}
+
+/** Get last opened app code. */
+function getLastAppCode()
+{
+    const lastApp = getLastApp();
+    return lastApp ? lastApp.code : null;
+}
+
+/**
+ * Close app
+ * @param {string} code
+ * @returns {ZentaoOpenedApp|undefined|false}
+ */
+function closeApp(code)
+{
+    code = code || getLastAppCode();
+    const app = apps.openedMap[code];
+    if(!app) return;
+
+    const iframe = app.iframe;
+    if(iframe)
+    {
+        if(iframe && iframe.contentDocument && iframe.contentWindow && iframe.contentWindow.onCloseApp)
+        {
+            var result = iframe.contentWindow.onCloseApp();
+            if(result === false) return false;
+        }
+    }
+
+    $('#appTabs a.active[data-app="' + code + '"]').parent().remove();
+
+    app.closed = true;
+    app.$app.trigger('hideapp', app);
+    app.$app.remove();
+    app.$bar.remove();
+
+    hideApp(code);
+    delete apps.openedMap[code];
+
+    triggerAppEvent(code, 'closeapp', app);
+    return app;
+}
+
+/**
+ * Hide app
+ * @param {string} code
+ * @returns {ZentaoOpenedApp|undefined}
+ */
+function hideApp(code)
+{
+    code = code || getLastAppCode();
+    const app = apps.openedMap[code];
+    if(!app) return;
+
+    $('#menuNav a.active[data-app="' + code + '"]').removeClass('active');
+
+    if(!app.closed) triggerAppEvent(code, 'hideapp', app);
+
+    app.$app.hide();
+
+    /* Active last app */
+    const lastApp = getLastApp(true) || getLastApp();
+    showApp(lastApp ? lastApp.code : apps.defaultCode);
+    return app;
+}
+
+/**
+ * Get app code from url
+ * @param {String} urlOrModuleName Url string
+ * @return {String}
+ */
+function getAppCode(urlOrModuleName, defaultCode)
+{
+    var code = navGroup[urlOrModuleName];
+    if(code) return code;
+
+    var link = $.parseLink(urlOrModuleName);
+    if(!link.moduleName || link.isOnlyBody || (link.moduleName === 'index' && link.methodName === 'index')) return '';
+
+    if(link.hash && link.hash.indexOf('app=') === 0) return link.hash.substr(4);
+
+    /* Handling special situations */
+    var moduleName        = link.moduleName;
+    var methodName        = link.methodName;
+    var moduleMethodLower = (moduleName + '-' + methodName).toLowerCase();
+
+    if(moduleMethodLower === 'index-index') return 'my';
+    if(moduleMethodLower === 'search-buildindex') return 'admin';
+
+    if(moduleName === 'tutorial' && methodName === 'wizard')
+    {
+        moduleName = link.vars[0][1];
+        methodName = link.vars[1][1];
+    }
+
+    var methodLowerCase = methodName.toLowerCase();
+    if(moduleName === 'doc')
+    {
+        if(link.prj) return 'project';
+
+        if((link.params.from || link.params.$3) == 'product')
+        {
+            if(['objectlibs', 'showfiles', 'browse', 'view', 'edit', 'delete', 'create'].includes(methodLowerCase)) return 'product';
+        }
+        return 'doc';
+    }
+    if(['caselib', 'testreport', 'testsuite', 'testtask', 'testcase', 'bug', 'qa'].includes(moduleName))
+    {
+        return link.prj ? 'project' : 'qa';
+    }
+    if(moduleName === 'report')
+    {
+        if(['usereport', 'editreport', 'deletereport', 'custom'].includes(methodLowerCase) && link.params.from) return 'system';
+        if(methodName == 'projectsummary') return 'project';
+        return 'bi';
+    }
+    if(moduleName === 'story' && vision === 'lite') return 'project'
+    if(moduleName === 'testcase' && methodLowerCase === 'zerocase')
+    {
+        return link.params.from == 'project' ? 'project' : 'qa';
+    }
+    if(moduleName === 'execution' && methodLowerCase === 'all')
+    {
+        return (link.params.from || link.params.$3) == 'project' ? 'project' : 'execution';
+    }
+    if(moduleName === 'issue' || moduleName === 'risk' || moduleName === 'opportunity' || moduleName === 'pssp' || moduleName === 'auditplan' || moduleName === 'meeting' || moduleName === 'nc')
+    {
+        if(link.params.$2 == 'my' || link.params.from == 'my') return 'my';
+        if(link.params.$2 == 'project' || link.params.from == 'project') return 'project';
+        if(link.params.$2 == 'execution' || link.params.from == 'execution') return 'execution';
+    }
+    if(moduleName === 'product')
+    {
+        if(methodLowerCase === 'create' && (link.params.programID || link.params.$1)) return 'program';
+        if(methodLowerCase === 'edit' && (link.params.programID || link.params.$4)) return 'program';
+        if(methodLowerCase === 'batchedit') return 'program';
+        var moduleGroup = link.params.moduleGroup ? link.params.moduleGroup : link.params.$2;
+        if(methodLowerCase === 'showerrornone' && moduleGroup) return moduleGroup;
+    }
+    if(moduleName === 'stakeholder')
+    {
+        if(methodLowerCase === 'create' && (link.params.programID || link.params.$1)) return 'program';
+    }
+    if(moduleName === 'user')
+    {
+        if(['todo', 'todocalendar', 'effortcalendar', 'effort', 'task', 'todo', 'story', 'bug', 'testtask', 'testcase', 'execution', 'dynamic', 'profile', 'view', 'issue', 'risk'].includes(methodLowerCase)) return 'system';
+    }
+    if(moduleName === 'my')
+    {
+        if(['team'].includes(methodLowerCase)) return 'system';
+    }
+    if(moduleName === 'company') if(methodLowerCase == 'browse') return 'admin';
+    if(moduleName === 'opportunity' || moduleName === 'risk' || moduleName == 'trainplan') if(methodLowerCase == 'view') return 'project';
+    if(moduleName === 'tree')
+    {
+        if(methodLowerCase === 'browse')
+        {
+            var viewType = link.params.view || link.params.$2;
+            if(['bug', 'case', 'caselib'].includes(viewType)) return link.params.$5 === 'project' ? 'project' : 'qa';
+
+            if(viewType === 'doc' && (link.params.from === 'product' || link.params.$5 == 'product')) return 'product';
+            if(viewType === 'doc' && (link.params.from === 'project' || link.params.$5 == 'project')) return 'project';
+            if(viewType === 'doc')   return 'doc';
+            if(viewType === 'story') return 'product';
+            if(viewType === 'host')  return 'admin';
+            if(viewType === 'ticket') return 'feedback';
+        }
+        if(methodLowerCase === 'browsetask') return 'execution';
+        if(methodLowerCase === 'browsegroup') return 'bi';
+    }
+    if(['ai', 'zai', 'aiteammate', 'aitask'].includes(moduleName)) return 'aiapp';
+
+    code = navGroup[moduleName] || moduleName || urlOrModuleName;
+    return apps.map[code] ? code : defaultCode;
+}
+
+/**
+ * Search history and go back to specified path.
+ *
+ * @param {string} target     Back target, can be app name or module-method path.
+ * @param {string} url        Fallback url.
+ * @param {object} startState Start state.
+ * @returns {void}
+ */
+function goBack(target, url, startState)
+{
+    const currentState = window.history.state;
+    const preState = currentState && currentState.prev;
+    if(DEBUG) showLog(null, 'Go back', target, null, {url, startState, currentState, preState});
+    if(target && startState && currentState && preState)
+    {
+        startState = startState.prev || (currentState && currentState.prev);
+        if($.apps.openedMap[target])
+        {
+            let state = startState;
+            while(state && state.code !== target) state = state.prev;
+            if(state && state.code === target)
+            {
+                if(state.index === preState.index)
+                {
+                    if(url) return openApp(url, target, false);
+                    return window.history.back();
+                }
+                return openApp(state.url, state.code, false);
+            }
+        }
+        else
+        {
+            const pathSet = new Set(target.toLowerCase().split(','));
+            let state = startState;
+            while(state && state.path && !pathSet.has(state.path.toLowerCase())) state = state.prev;
+            if(state && pathSet.has(state.path.toLowerCase()))
+            {
+                return openApp(state.url, state.code, false);
+            }
+        }
+    }
+
+    if(url) return openApp(url);
+    if(target && !target.endsWith('APP'))
+    {
+        if($.apps.openedMap[target]) return openApp(target);
+        if(target.includes('-'))
+        {
+            const parts = target.split(',').shift().split('-');
+            return openApp($.createLink(parts[0], parts[1]));
+        }
+    }
+
+    window.history.back();
+}
+
+/**
+ * Logout current user.
+ *
+ * @param {string} url
+ */
+function logout(url)
+{
+    if(!url) url = getLastApp().currentUrl.replace(/^https?:\/\/[^/]+/, '');
+    $.get($.createLink('user', 'logout', 'referer=' + btoa(url)), function(data)
+    {
+        let load = $.createLink('user', 'login');
+        try
+        {
+            data = JSON.parse(data);
+            if(data.load != 'login') load = data.load;
+        }
+        catch (error) {}
+        location.href = load;
+    });
+}
+
+/**
+ * Toggle left menu
+ * @param {boolean} [toggle]
+ * @returns {boolean}
+ */
+function toggleMenu(toggle)
+{
+    var $body = $('body');
+    if (toggle === undefined) toggle = $body.hasClass('hide-menu');
+    $body.toggleClass('hide-menu', !toggle).toggleClass('show-menu', !!toggle);
+
+    $.cookie.set('hideMenu', String(!toggle), {expires: config.cookieLife, path: config.webRoot});
+    return toggle;
+}
+
+/**
+ * Refresh more menu in #menuNav
+ * @return {void}
+ */
+function refreshMenu()
+{
+    const $mainNav       = $('#menuMainNav');
+    const $list          = $('#menuMoreList');
+    const $menuNav       = $('#menuNav');
+    const hasSpace       = $('body').hasClass('has-space');
+    const $menuItems     = $mainNav.children(hasSpace ? '.is-space' : '.is-original');
+    const itemHeight     = $menuItems.filter((_, ele) => {
+        const $ele = $(ele);
+        return $ele.css('display') !== 'none' && !$ele.hasClass('divider');
+    }).first().outerHeight();
+    const maxHeight      = $('#menu').outerHeight() - ($('body').hasClass('has-space') ? (($('#spaceHeading').outerHeight() || 0) + 8) : 0) - 24 - $('#menuToggleNav').outerHeight();
+    const dividerHeight  = 13;
+    let showMoreMenu     = false;
+    let currentHeight    = 0;
+    let $firstHiddenItem = null;
+    const moreBtnHeight  = itemHeight + dividerHeight;
+
+    $menuItems.each(function()
+    {
+        let $item     = $(this);
+        let isDivider = $item.hasClass('divider');
+        let height    = isDivider ? dividerHeight : itemHeight;
+
+        if(showMoreMenu || (currentHeight + height) > maxHeight)
+        {
+            if(!$firstHiddenItem) $firstHiddenItem = $item;
+            $item.addClass('hidden');
+            if(!showMoreMenu)
+            {
+                showMoreMenu = true;
+                $list.empty();
+            }
+            $list.append($item.clone().toggleClass('menu-item', !isDivider).removeClass('hidden'));
+        }
+        else
+        {
+            currentHeight += height;
+            $item.removeClass('hidden');
+        }
+    });
+
+    if(showMoreMenu && $firstHiddenItem && (currentHeight + moreBtnHeight) > maxHeight)
+    {
+        const $prevItem = $firstHiddenItem.prev();
+        if($prevItem.length)
+        {
+            $prevItem.addClass('hidden');
+            let isDivider = $prevItem.hasClass('divider');
+            $list.prepend($prevItem.clone().toggleClass('menu-item', !isDivider).removeClass('hidden'));
+        }
+    }
+
+    let moreMenuHeight = 16;
+    let nextNoDivider  = true;
+    $list.children().each(function()
+    {
+        const $item     = $(this);
+        const isDivider = $item.hasClass('divider');
+        if(isDivider && nextNoDivider)
+        {
+            $item.addClass('hidden');
+            return;
+        }
+        nextNoDivider = isDivider;
+        moreMenuHeight += isDivider ? dividerHeight : itemHeight;
+    });
+
+    nextNoDivider = true;
+    let $lastItem = null;
+    $menuItems.each(function()
+    {
+        const $item = $(this);
+        if($item.hasClass('hidden')) return;
+
+        const isDivider = $item.hasClass('divider');
+        if(isDivider && nextNoDivider)
+        {
+            $item.addClass('hidden');
+            return;
+        }
+        nextNoDivider = isDivider;
+        $lastItem = $item;
+    });
+    if($lastItem && $lastItem.hasClass('divider')) $lastItem.addClass('hidden');
+
+    $menuNav.toggleClass('show-more-nav', showMoreMenu);
+
+    if(showMoreMenu && !$list.data('listened-click'))
+    {
+        $list.data('listened-click', true).on('click', function()
+        {
+            $list.addClass('hidden');
+            setTimeout(function(){$list.removeClass('hidden')}, 200);
+        });
+    }
+}
+
+/** Init apps menu list. */
+function initAppsMenu(items)
+{
+    if($.cookie.get('workspace'))
+    {
+        $('#menu').addClass('waiting-workspace');
+        $(document).on('openapp', () =>
+        {
+            if($.cookie.get('workspace') === getLastAppCode()) return;
+            $('#menu').removeClass('waiting-workspace');
+        });
+    }
+
+    apps.map.help =
+    {
+        code:     'help',
+        icon:     'icon-help',
+        url:      manualUrl || $helpLink.attr('href'),
+        external: true,
+        text:     manualText || $helpLink.text(),
+        appUrl:   config.webRoot + '#app=help'
+    };
+
+    const $menuMainNav = $('#menuMainNav').empty();
+    (items || appsItems).forEach(function(item)
+    {
+        const oldItem = apps.map[item.code];
+        if(item === 'divider') return $menuMainNav.append('<li class="divider is-original"></li>');
+        if(oldItem !== item && oldItem) item = $.extend({}, oldItem, item, {active: oldItem.active});
+        item.external = item.external || item.url && item.url.includes('://');
+
+        const $link= $('<a data-pos="menu"></a>')
+            .attr('data-app', item.notApp ? undefined : item.code)
+            .attr('href', item.url || '#')
+            .attr('target', item.notApp ? '_blank' : undefined)
+            .addClass('rounded' + (item.notApp ? '' : ' show-in-app'))
+            .html(item.title, false);
+
+        item.icon = item.icon || ($link.find('.icon').attr('class') || '').replace('icon ', '');
+        item.text = $link.text().trim();
+        $link.html('<i class="icon icon-app-empty ' + item.icon + '"></i><span class="text"></span>', false);
+        $link.find('.text').toggleClass('font-brand', ['devops', 'bi', 'safe'].includes(item.code)).attr('title', item.text).text(item.text);
+        apps.map[item.code] = item;
+
+        $('<li class="hint-right is-original"></li>')
+            .attr({'data-app': item.code, 'data-hint': item.text})
+            .append($link)
+            .appendTo($menuMainNav);
+
+        const hasLongText = $link.find('.text').width() > ($link.outerWidth() - 24);
+        $link.toggleClass('has-long-text', hasLongText).find('.text').attr('title', hasLongText ? item.text : null);
+
+        if(!apps.defaultCode) apps.defaultCode = item.code;
+    });
+
+    /* 隐藏的App依然可以通过输入URL的形式打开。 */
+    allAppsItems.forEach(function(item)
+    {
+        if(item.code && !apps.map[item.code]) apps.map[item.code] = item;
+    });
+
+    const lastApp = getLastApp();
+    if(lastApp) $menuMainNav.find('li[data-app="' + lastApp.code + '"]>a').addClass('active');
+
+    apps.map.search =
+    {
+        opened:     false,
+        code:       'search',
+        group:      'search',
+        icon:       'icon-search',
+        methodName: 'index',
+        moduleName: 'search',
+        text:       langData.search,
+        title:      '<i class="icon icon-search"></i> ' + langData.search,
+        url:        '/index.php?m=search&f=index',
+        vars:       ''
+    };
+
+    $('#appTabs').find('.nav-item').each(function()
+    {
+        const $item = $(this);
+        const code = $item.data('app');
+        const app = apps.map[code];
+        if(!app) return;
+        $item.find('.text').text(app.text);
+    });
+
+    const selectLangCallback = window.zinCallbacks.onSelectLang;
+    if(typeof selectLangCallback === 'function')
+    {
+        try { selectLangCallback(window.config.clientLang); } catch (e) { console.error('[ZIN] onSelectLang callback error:', e); }
+    }
+    const selectVisionCallback = window.zinCallbacks.onSelectVision;
+    if(typeof selectVisionCallback === 'function')
+    {
+        try { selectVisionCallback(window.getVisions()); } catch (e) { console.error('[ZIN] onSelectVision callback error:', e); }
+    }
+
+    refreshMenu();
+}
+
+/** Update apps menu. */
+function updateAppsMenu(includeAppsBar)
+{
+    loadCurrentPage(
+    {
+        selector: (includeAppsBar ? '#menuMoreBtn>*,#appsToolbar>*,#visionSwitcher>*,' : '') + '#appsItemsData,#configJS,#searchItemsData,#userVisionData',
+        complete: () => initAppsMenu(window.appsItems),
+    });
+}
+
+function changeAppsLang(lang)
+{
+    $('html').attr('lang', lang);
+    zui.i18n.setCode(lang);
+    $.each(apps.openedMap, function(_code, app)
+    {
+        if(app.iframe && app.iframe.contentWindow && app.iframe.contentWindow.changeAppLang)
+        {
+            app.iframe.contentWindow.changeAppLang(lang);
+        }
+    });
+    if(!$.apps.workspace) updateAppsMenu(true);
+}
+
+function changeAppsTheme(theme)
+{
+    changeAppTheme(theme);
+    $.each(apps.openedMap, function(_code, app)
+    {
+        if(app.iframe && app.iframe.contentWindow && app.iframe.contentWindow.changeAppTheme)
+        {
+            app.iframe.contentWindow.changeAppTheme(theme);
+        }
+    });
+    apps.theme = theme;
+    $.get($.createLink('index', 'app'), html =>
+    {
+        apps.frameContent = html;
+        apps.theme = null;
+    });
+}
+
+function updateUserToolbar()
+{
+    $.each(apps.openedMap, function(_code, app)
+    {
+        if(app.iframe && app.iframe.contentWindow && app.iframe.contentWindow.loadPage)
+        {
+            app.iframe.contentWindow.loadPage({selector: '#toolbar', partial: true, target: '#toolbar'});
+        }
+    });
+}
+
+initAppsMenu();
+/* Refresh more menu on window resize */
+$(window).on('resize', refreshMenu);
+setTimeout(refreshMenu, 500);
+
+/* Bind event for menut-toggle */
+$(document).on('click', '.menu-toggle', () => toggleMenu());
+toggleMenu(!$('body').hasClass('hide-menu'));
+
+/**
+ * Get current menu nav data.
+ *
+ * @returns {Array<{name: string; order: number;}>}
+ */
+function getMenuNavData()
+{
+    const data      = [];
+    const $nav      = $('#menuMainNav');
+    const workspace = $.apps.workspace;
+    $nav.children($.apps.workspace ? '.is-space' : '.is-original').each(function(index, element)
+    {
+        const $elm = $(element);
+        if($elm.hasClass('rsh-more')) return;
+
+        const menuItem = {};
+        menuItem.name  = $elm.is('.divider') ? 'divider' : $elm.data(workspace ? 'name' : 'app');
+        menuItem.order = index * 5;
+        if(typeof $elm.data('hidden') != 'undefined') menuItem.hidden = true;
+
+        data.push(menuItem);
+    });
+
+    return data;
+}
+
+/**
+ * Save menu nav to server.
+ */
+function saveMenuNavToServer()
+{
+    const url = $.createLink('custom', 'ajaxSetMenu');
+    const data = getMenuNavData();
+    let   menu = 'nav';
+
+    if($.apps.workspace)
+    {
+        const currentApp = getLastApp();
+        if(currentApp.workspace.type === $.apps.workspace) menu = currentApp.workspace.menuGroup;
+    }
+
+    $.ajaxSubmit({url, data: {menu: menu, items: JSON.stringify(data)}});
+}
+
+/**
+ * Restore menu nav to server.
+ */
+function restoreMenuNavToServer()
+{
+    let menu = 'nav';
+    if($.apps.workspace)
+    {
+        const currentApp = getLastApp();
+        if(currentApp.workspace.type === $.apps.workspace) menu = currentApp.workspace.menuGroup;
+    }
+
+    const url = $.createLink('custom', 'ajaxRestoreMenu');
+    $.ajaxSubmit({url, data: {menu: menu}});
+    top.location.reload();
+}
+
+/**
+ * Generate menu nav items to be added.
+ *
+ * @param {Cash} $item
+ * @param {(item: string) => void} onClick click handler of menu item.
+ * @returns {Array<{icon: string; text: string; onClick: () => void;}>}
+ */
+function generateAddMenuNavItems($item)
+{
+    const onClick = addMenuToMainNavCb($item);
+    const items = [];
+    const $li = $item.closest('li');
+    if(canAddDivider($li)) items.push({
+        icon: 'icon-minus',
+        text: langData.divider,
+        onClick: () => {
+            onClick('divider');
+            saveMenuNavToServer();
+        }
+    });
+
+    const data = getMenuNavData();
+    const allAppCodeSet = new Set(allAppsItemsMap.keys());
+    for(const {name} of data)
+    {
+        if(name === 'divider') continue;
+        allAppCodeSet.delete(name);
+    }
+
+    if(allAppCodeSet.size === 0) return items;
+    for(const name of allAppCodeSet)
+    {
+        const [icon, title] = getAppItemIconAndTitle(name);
+        items.push({
+            icon,
+            text: title,
+            onClick: () => {
+                onClick(name);
+                saveMenuNavToServer();
+            }
+        });
+    }
+    return items;
+}
+
+function addMenuToSpaceNavCb($li, info)
+{
+    return (name) => {
+        if(name === 'divider')
+        {
+            $li.after('<li class="divider"></li>');
+            refreshMenu();
+            return
+        }
+
+        const fromName = $li.attr('data-name');
+        const item = info.itemMap.get(name);
+        if(!item) return;
+        if(name === 'divider')
+        {
+            const index = info.items.findIndex(item => item.code === fromName);
+            info.items.splice(index, 0, {type: 'divider'});
+            $li.after('<li class="divider is-space"></li>');
+        }
+        else
+        {
+            const oldIndex = info.items.findIndex(item => item.code === name);
+            info.items.splice(oldIndex, 1);
+            const newIndex = info.items.findIndex(item => item.code === fromName);
+            info.items.splice(newIndex, 0, item);
+            item.hidden = false;
+            updateSpaceMenu(info);
+        }
+    };
+}
+
+function generateAddSpaceNavItems($ele)
+{
+    const currentApp = getLastApp();
+    const info       = currentApp.workspace;
+    const $li        = $ele.closest('li');
+    if(!info || !$li.length) return [];
+
+    const handleItemClick = (name) => {
+        const fromName = $li.attr('data-name');
+        if(name === 'divider')
+        {
+            const index = info.items.findIndex(item => item.code === fromName);
+            info.items.splice(index, 0, {type: 'divider'});
+            $li.after('<li class="divider is-space"></li>');
+        }
+        else
+        {
+            const item = info.itemMap.get(name);
+            if(!item) return;
+            const oldIndex = info.items.findIndex(item => item.code === name);
+            info.items.splice(oldIndex, 1);
+            const newIndex = info.items.findIndex(item => item.code === fromName);
+            info.items.splice(newIndex + 1, 0, item);
+            item.hidden = false;
+            updateSpaceMenu(info);
+        }
+
+        saveMenuNavToServer();
+    };
+    const items = [];
+    if(canAddDivider($li)) items.push({
+        icon: 'icon-minus',
+        text: langData.divider,
+        onClick: () => handleItemClick('divider')
+    });
+
+    info.items.forEach((item) => {
+        if(!item.hidden) return;
+        items.push({
+            icon: `icon-app-empty ${item.icon || `icon-${item.code}`}`,
+            text: item.text,
+            onClick: () => handleItemClick(item.code)
+        });
+    });
+
+    return items;
+}
+
+function updateSpaceMenu(info)
+{
+    const spaceType    = info ? info.type : '';
+    const currentApp   = getLastApp();
+    const currentCode  = currentApp.code;
+    const hasSpaceNav  = spaceType === currentCode;
+    const $menuMainNav = $('#menuMainNav');
+    const $menu        = $('#menu');
+
+    $.apps.workspace = spaceType;
+    currentApp.workspace = info;
+    $menu.attr('data-space', spaceType);
+    $('body').toggleClass('has-space', hasSpaceNav);
+
+    $menuMainNav.children('.is-space').remove();
+    if(!hasSpaceNav)
+    {
+        refreshMenu();
+        if(info !== undefined) $menu.removeClass('waiting-workspace');
+        return;
+    }
+
+    const $spaceHeading = $('#spaceHeading').toggleClass('has-dropmenu', !!info.dropmenu);
+    if(info.dropmenu)
+    {
+        const $dropmenu = $('<div id="spaceDropmenu"></div>');
+        $spaceHeading.find('.text').empty().append($dropmenu);
+        const options = zui.evalValue(info.dropmenu, ['_element', $dropmenu[0]], ['_$dropmenu', $dropmenu]);
+        zui.create('dropmenu', $dropmenu[0], $.extend({icon: info.icon || spaceType, display: zui.jsx`<span class="text" title=${info.name}>${info.name}</span>`}, options, {leadingAngle: false}));
+    }
+    else
+    {
+        if(info.name) $spaceHeading.find('.text').text(info.name).attr('title', info.name);
+    }
+    $spaceHeading.find('.icon').attr('class', `icon icon-${info.icon || spaceType}`);
+
+    info.items.forEach(function(item)
+    {
+        item.code = item['data-id'];
+        if(item.code === 'more') return;
+        if(item === 'divider' || item.type === 'divider') return $menuMainNav.append('<li class="divider is-space"></li>');
+
+        const $link= $('<a data-pos="menu"></a>')
+            .attr('data-app', currentCode)
+            .attr('href', item.url || '#')
+            .attr('target', item.notApp ? '_blank' : undefined)
+            .toggleClass('active', item.code === info.active)
+            .addClass('rounded' + (item.notApp ? '' : ' open-in-app'));
+
+        item.icon = item.icon || `icon-${item.code}`;
+        $link.html('<i class="icon icon-app-empty ' + item.icon + '"></i><span class="text"></span>', false);
+        $link.find('.text').toggleClass('font-brand', ['devops', 'bi', 'safe'].includes(item.code)).attr('title', item.text).text(item.text);
+
+        $('<li class="hint-right is-space"></li>')
+            .attr({'data-app': currentCode, 'data-hint': item.text, 'data-name': item.code})
+            .attr('data-hidden', item.hidden ? 1 : null)
+            .css('display', item.hidden ? 'none' : 'block')
+            .append($link)
+            .appendTo($menuMainNav);
+    });
+    refreshMenu();
+    $menu.removeClass('waiting-workspace');
+}
+
+$(document).on('contextmenu', '#menuMainNav .divider', function(event)
+{
+    const $divider = $(this);
+    const $nav = $divider.closest('.nav');
+    const isMoving = $nav.is('[z-use-sortable]');
+    let   items = [];
+    if(isMoving)
+    {
+        items.push({
+            text: langData.save,
+            onClick: () => {
+                $divider.closest('.nav').zui().destroy();
+                saveMenuNavToServer();
+            }
+        });
+    }
+    else
+    {
+        items.push({
+            text: langData.sort,
+            onClick: () => {
+                const sortable = new zui.Sortable('#menuMainNav', {
+                    animation: 150,
+                    ghostClass: 'bg-primary-pale',
+                    onSort: () => saveMenuNavToServer()
+                });
+            }
+        });
+    }
+    items.push({
+        text: langData.hide,
+        onClick: () => {
+            const $li = $divider.closest('li');
+            $li.remove();
+            if(!$.apps.workspace) refreshMenu();
+            saveMenuNavToServer();
+        }
+    });
+    const toAddedItems = $.apps.workspace ? generateAddSpaceNavItems($divider) : generateAddMenuNavItems($divider);
+    items.push(toAddedItems.length ? {text: langData.add, items: toAddedItems} : {text: langData.add, disabled: true});
+    items.push({text: langData.restore, onClick: () => restoreMenuNavToServer()});
+
+    items = items.filter(Boolean);
+    if(!items.length) return;
+    if(apps.openedMenu) apps.openedMenu.hide();
+    apps.openedMenu = zui.ContextMenu.show({
+        element: $divider[0],
+        placement: 'right-start',
+        items: items,
+        event: event,
+        onClickItem: (info) => info.event.preventDefault(),
+        onHide: () => apps.openedMenu = null,
+    });
+    event.preventDefault();
+});
+
+/* Bind events for app trigger */
+$(document).on('click', '.open-in-app,.show-in-app', function(e)
+{
+    const $link = $(this);
+    if($link.is('[data-modal],[data-toggle],.iframe,.not-in-app')) return;
+    const url = $link.attr('href') || $link.data('url');
+    if(url && url.includes('onlybody=yes')) return;
+    const code = $link.data('app');
+    if($.apps.openedMap[code]) showApp(code);
+    else openApp(url, $link.data('app'), !$link.hasClass('show-in-app'));
+    e.preventDefault();
+}).on('contextmenu', '.open-in-app,.show-in-app', function(event)
+{
+    if(isTutorialMode) return;
+
+    const $btn  = $(this);
+    const code = $btn.data('app');
+    if(!code) return;
+
+    const app         = apps.openedMap[code];
+    const inTabs      = !!$btn.closest('#appTabs').length;
+    const inWorkspace = $.apps.workspace === code;
+    let   items       = [(inWorkspace && !inTabs) ? null : {text: langData.open, disabled: app && getLastAppCode() === code, onClick: () => showApp(code)}];
+
+    if(app && (!inWorkspace || inTabs || $btn.hasClass('active'))) items.push({text: langData.reload, onClick: () => reloadApp(code)});
+
+    if($btn.closest('#menuMainNav').length !== 0)
+    {
+        const $nav = $btn.closest('.nav');
+        const isMoving = $nav.is('[z-use-sortable]');
+        if(isMoving)
+        {
+            items.push({
+                text: langData.save,
+                onClick: () => {
+                    $btn.closest('.nav').zui().destroy();
+                    saveMenuNavToServer();
+                }
+            });
+        }
+        else
+        {
+            items.push({
+                text: langData.sort,
+                onClick: () => {
+                    const sortable = new zui.Sortable('#menuMainNav', {
+                        animation: 150,
+                        ghostClass: 'bg-primary-pale',
+                        onSort: () => saveMenuNavToServer()
+                    });
+                }
+            });
+        }
+
+        const hideDisabled = code === 'my' || $btn.is('.active');
+        items.push({
+            text: langData.hide,
+            onClick: hideDisabled ? null : () => {
+                const $li = $btn.closest('li');
+                $li.hide().attr('data-hidden', '1');
+                if($.apps.workspace)
+                {
+                    const info = app.workspace;
+                    const name = $li.attr('data-name');
+                    const item = info.items.find(x => x.code === name);
+                    if(item) item.hidden = true;
+                }
+                else
+                {
+                    closeApp(code);
+                    refreshMenu();
+                    changeApp();
+                }
+                saveMenuNavToServer();
+            },
+            disabled: hideDisabled,
+        });
+        const toAddedItems = inWorkspace ? generateAddSpaceNavItems($btn) : generateAddMenuNavItems($btn);
+        if(toAddedItems.length)
+        {
+            items.push(toAddedItems.length ? {text: langData.add, items: toAddedItems} : {text: langData.add, disabled: true});
+        }
+
+        if(!inWorkspace && app && code !== 'my') items.push({text: langData.close, onClick: () => closeApp(code)});
+
+        items.push({text: langData.restore, onClick: () => restoreMenuNavToServer()});
+    }
+    else
+    {
+        if(!inWorkspace && app && code !== 'my') items.push({text: langData.close, onClick: () => closeApp(code)});
+    }
+
+    items = items.filter(Boolean);
+    if(!items.length) return;
+    if(apps.openedMenu) apps.openedMenu.hide();
+    apps.openedMenu = zui.ContextMenu.show({element: $btn[0], placement: $btn.closest('#appTabs').length ? 'top-start' : 'right-start', items: items.filter(Boolean), event: event, onClickItem: function(info){info.event.preventDefault();}, onHide: () => {apps.openedMenu = null}});
+    event.preventDefault();
+});
+
+$(window).on('popstate', function(event)
+{
+    const state = event.state;
+    if(DEBUG) showLog(state ? state.code : null, 'Popstate', state ? state.url : null, state);
+    if(state) openApp(state.url, state.code, false);
+});
+
+$.get($.createLink('index', 'app'), html =>
+{
+    apps.frameContent = html;
+
+    /* Open default app */
+    let url = defaultOpen || '';
+    let code = '';
+    if(location.hash.indexOf('#app=') === 0)
+    {
+        const params = $.parseUrlParams(location.hash.substring(1));
+        code = params.app;
+    }
+    else if(url.includes(' '))
+    {
+        const parts = url.split(' ');
+        url = parts[0];
+        code = parts[1];
+    }
+    else if(url && $.apps[url])
+    {
+        code = url;
+        url  = '';
+    }
+    if(!code && defaultOpen)
+    {
+        const lastOpenApp = zui.store.session.get('lastOpenApp');
+        if(lastOpenApp && (lastOpenApp.url === url || lastOpenApp.url.endsWith(url) || $.parseLink(lastOpenApp.url).url === $.parseLink(url).url)) code = lastOpenApp.code;
+    }
+    if(!url)
+    {
+        if(!code) url = apps.defaultCode;
+        else {url = code; code = '';}
+    }
+    openApp(url, code);
+});
+
+$.apps = $.extend(apps,
+{
+    openedApps:        apps.openedMap,
+    openApp:           openApp,
+    open:              openApp,
+    reloadApp:         reloadApp,
+    showApp:           showApp,
+    updateApp:         updateApp,
+    updateUrl:         function(appCode, url, title) {return updateApp(appCode, url, title)},
+    getLastApp:        getLastApp,
+    goBack:            goBack,
+    logout:            logout,
+    isOldPage:         isOldPage,
+    getAppCode:        getAppCode,
+    updateAppsMenu:    updateAppsMenu,
+    changeAppsLang:    changeAppsLang,
+    changeAppsTheme:   changeAppsTheme,
+    updateUserToolbar: updateUserToolbar,
+    closeApp:          closeApp,
+    toggleMenu:        toggleMenu,
+    triggerAppEvent:   triggerAppEvent,
+    getApps:           getApps,
+    getVisibleApps:    getVisibleApps,
+    getOpenedApps:     getOpenedApps,
+    updateSpaceMenu:   updateSpaceMenu,
+});
+
+window.notifyMessage = function(data)
+{
+    if(!window.Notification) return;
+
+    var notify  = null;
+    var message = data;
+    if(typeof data.text == 'string') message = data.text;
+    if(Notification.permission == "granted")
+    {
+        notify = new Notification("", {body:message, tag:'zentao', data:data});
+    }
+    else if(Notification.permission != "denied")
+    {
+        Notification.requestPermission().then(function(permission)
+        {
+            notify = new Notification("", {body:message, tag:'zentao', data:data});
+        });
+    }
+
+    if(!notify) return;
+
+    notify.onclick = function()
+    {
+        window.focus();
+        if(typeof notify.data.url == 'string' && notify.data.url) window.location.href = notify.data.url;
+        notify.close();
+    }
+    setTimeout(function(){notify.close();}, 3000);
+}
+
+window.browserNotify = function()
+{
+    let windowBlur = false;
+    setInterval(function()
+    {
+        if(window.Notification && Notification.permission == 'default') Notification.requestPermission();
+        if(window.Notification && Notification.permission == 'granted')
+        {
+            window.onblur  = function(){windowBlur = true;}
+            window.onfocus = function(){windowBlur = false;}
+            $('iframe').each(function()
+            {
+                let iframeID = $(this).attr('id');
+                let $this = document.getElementById(iframeID);
+                if(document.all)
+                {
+                    $this.onblur  = function(){windowBlur = true;}
+                    $this.onfocus = function(){windowBlur = false;}
+                }
+                else
+                {
+                    $this.contentWindow.onblur  = function(){windowBlur = true;}
+                    $this.contentWindow.onfocus = function(){windowBlur = false;}
+                }
+            });
+        }
+
+        $.get($.createLink('message', 'ajaxGetMessage', "windowBlur=" + (windowBlur ? '1' : '0')), function(data)
+        {
+            if(!data) return;
+            if(typeof data == 'string') data = JSON.parse(data);
+            for(i in data.messages)
+            {
+                let message = data.messages[i];
+                if(windowBlur)
+                {
+                    if(typeof message.text == 'string') notifyMessage(message);
+                }
+                else
+                {
+                    if(!$(message).hasClass('browser-message-content')) continue;
+                    zui.Messager.show(
+                    {
+                        content: {html: message},
+                        placement: 'bottom-right',
+                        time: 0,
+                        icon: 'envelope-o',
+                        className: 'bg-secondary-50 text-secondary-600 messager-notice w-96'
+                    });
+                }
+            }
+
+            let unreadCount = parseInt(data.newCount);
+            let showCount   = data.showCount != '0';
+            let dotStyle    = 'padding: 2px;';
+            let rightStyle  = showCount ? 'right: -10px;' : 'right: -2px;';
+            if(!showCount) dotStyle += 'width: 5px; height: 5px;';
+            if(unreadCount < 10 && showCount) rightStyle = 'right: -5px;';
+            if(unreadCount > 99) unreadCount = '99+';
+
+            dotStyle += showCount ? 'top: -3px; aspect-ratio: 0;' : 'top: -2px; aspect-ratio: 1 / 1;';
+            dotStyle += rightStyle;
+
+            let dotHtml = '<span class="label danger label-dot absolute' + (showCount ? ' rounded-sm' : '') + '" style="' + dotStyle + '">' + (showCount ? unreadCount : '') + '</span>';
+            $('#apps .app-container').each(function()
+            {
+                let $iframeMessageBar = $(this).find('iframe').contents().find('#messageBar');
+                if($iframeMessageBar.length > 0)
+                {
+                    $iframeMessageBar.find('.label-dot.danger').remove();
+                    if(unreadCount) $iframeMessageBar.append(dotHtml);
+                }
+
+                let $oldPage = $(this).find('iframe').contents().find('#oldPage');
+                if($oldPage.length > 0)
+                {
+                    $iframeMessageBar = $oldPage.find('iframe').contents().find('#messageBar');
+                    if($iframeMessageBar.length  == 0) return;
+
+                    $iframeMessageBar.find('.label-dot.danger').remove();
+                    if(unreadCount) $iframeMessageBar.append(dotHtml);
+                }
+            });
+        });
+    }, pollTime * 1000);
+};
+
+window.clickMessage = function(obj)
+{
+    let $obj = $(obj);
+    let url  = $obj.attr('data-url').replace(/\?onlybody=yes/g, '').replace(/\&onlybody=yes/g, '');
+    let messageID = $obj.parent().attr('data-id');
+    openApp(url);
+    $.get($.createLink('message', 'ajaxMarkRead', 'id=' + messageID));
+    $(obj).closest('.alert.messager').find('.alert-close').trigger('click');
+}
+
+window.ping = function()
+{
+    setInterval(function(){$.get($.createLink('misc', 'ping'));}, pollTime * 1000);
+}
+
+window.startCron = function(restart)
+{
+    if(typeof(restart) == 'undefined') restart = 0;
+    $.ajax({type:"GET", timeout:100, url:$.createLink('cron', 'ajaxExec', 'restart=' + restart)});
+}
+
+turnon ? browserNotify() : ping();
+if(runnable) startCron();
+if(scoreNotice) zui.Messager.show({ content: {html: scoreNotice}, placement: 'bottom-right', time: 0, icon: 'diamond', className: 'bg-secondary-50 text-secondary-600 score-notice'});
+
+/* Handle clicking outside. */
+$(document).on('click', e =>
+{
+    if($(e.target).attr('id') != 'bizLink' && !$(e.target).parents('#bizLink').length)
+    {
+        $('#upgradeContent').hide();
+        $('#bizLink').removeClass('active');
+    }
+});
+
+const allAppsItemsMap = new Map();
+$(document).ready(
+    function()
+    {
+        for(const item of allAppsItems)
+        {
+            if(item === 'divider') continue;
+
+            allAppsItemsMap.set(item.code, item);
+        }
+    }
+);
+
+/**
+ * Get icon and title of app item.
+ *
+ * @param {string} name app name
+ * @returns {[string, string]}
+ */
+function getAppItemIconAndTitle(name)
+{
+    if(!allAppsItemsMap.has(name)) return[];
+    const item = allAppsItemsMap.get(name);
+    const str = item.title;
+    const regex = /class=["']icon (\S*)["']\>\<\/i\>\s(\S*)/;
+    const matches = str.match(regex);
+
+    if(matches)
+    {
+        const icon = matches[1];
+        const text = matches[2].trim();
+        return [icon, text];
+    }
+    return [];
+}
+
+/**
+ * Add menu item to #mainNav callback, used by generateAddMenuNavItems.
+ *
+ * @param {Cash} $li menu item li
+ * @returns {(name: string) => void}
+ */
+function addMenuToMainNavCb($ele) {
+    return (name) => {
+        const $li = $ele.closest('li');
+        if(name === 'divider')
+        {
+            $li.after('<li class="divider"></li>');
+            refreshMenu();
+            return
+        }
+
+        let item = allAppsItemsMap.get(name);
+        const oldItem = apps.map[item.code];
+        if(oldItem !== item && oldItem) item = $.extend({}, oldItem, item, {active: false});
+        item.external = item.external || item.url && item.url.includes('://');
+
+        const $link= $('<a data-pos="menu"></a>')
+            .attr('data-app', item.notApp ? undefined : item.code)
+            .attr('href', item.url || '#')
+            .attr('target', item.notApp ? '_blank' : undefined)
+            .addClass('rounded' + (item.notApp ? '' : ' show-in-app'))
+            .html(item.title, false);
+
+        item.icon = item.icon || ($link.find('.icon').attr('class') || '').replace('icon ', '');
+        item.text = $link.text().trim();
+        $link.html('<i class="icon ' + item.icon + '"></i><span class="text">' + item.text + '</span>', false);
+        if(['devops', 'bi', 'safe'].includes(item.code)) $link.find('.text').addClass('font-brand');
+        apps.map[item.code] = item;
+
+        $('<li class="hint-right is-original"></li>')
+            .attr({'data-app': item.code, 'data-hint': item.text})
+            .append($link)
+            .insertAfter($li);
+
+        refreshMenu();
+        if(!apps.defaultCode) apps.defaultCode = item.code;
+    };
+}
+
+/**
+ * Check whether current element can add a divider.
+ * @param {Cash} $item
+ * @returns {boolean}
+ */
+function canAddDivider($item)
+{
+    $item = $item.closest('li');
+    if($item.is('.divider'))                       return false;
+    if($item.next().not('.hidden').is('.divider')) return false;
+    if($item.is(':last-child'))                    return false;
+    return true;
+}
+}());</script><div id="chat-container">
+    <div id="xuan-chat-view">
+        <div class="unconfigured text-gray">尚未配置 聊天 功能，请联系管理员进行功能配置。</div>
+    </div>
+</div></body></html>

@@ -1,0 +1,81 @@
+name: CI - API 自动化测试 + Allure 报告 + 禅道同步
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:  # 手动触发
+
+jobs:
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - name: 检出代码
+        uses: actions/checkout@v4
+
+      - name: 设置 Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: 安装 uv
+        run: |
+          pip install uv
+          uv --version
+
+      - name: 安装项目依赖
+        run: |
+          cd api_testcases
+          uv sync
+          uv run playwright install chromium
+
+      - name: 启动 Docker 服务
+        run: |
+          docker-compose up -d
+          echo "等待 MySQL 启动..."
+          for /f %i in ('powershell -Command "Get-NetTCPConnection -LocalPort 3306 -ErrorAction SilentlyContinue | Measure-Object | Select-Object -ExpandProperty Count"') do @if %i==0 (
+            powershell -Command "Start-Sleep 5"
+          )
+          echo "MySQL 已就绪"
+
+      - name: 运行 pytest + Allure
+        run: |
+          cd api_testcases
+          uv run pytest --alluredir=reports/allure_results -v
+
+      - name: 生成 Allure 报告
+        run: |
+          cd api_testcases
+          if (-not (Get-Command allure -ErrorAction SilentlyContinue)) {
+            uv run pip install allure-commandline
+          }
+          allure generate reports/allure_results -o reports/allure_report --clean
+          echo "报告路径: reports/allure_report/index.html"
+
+      - name: 同步结果到禅道
+        env:
+          ZENTAO_PASS: ${{ secrets.ZENTAO_PASS }}
+        run: |
+          cd api_testcases
+          uv run python zentao_sync.py
+
+      - name: 上传 Allure 报告
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: api_testcases/reports/allure_report/
+          retention-days: 30
+
+      - name: 上传 Allure 原始结果
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: api_testcases/reports/allure_results/
+          retention-days: 30
+
+      - name: 停止 Docker 服务
+        if: always()
+        run: docker-compose down
