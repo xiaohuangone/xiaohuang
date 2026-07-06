@@ -146,7 +146,7 @@ jobs:
           RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
           # 飞书消息卡片
-          cat > /tmp/feishu_card.json << 'EOF'
+          cat > /tmp/feishu_card.json << EOF
           {
             "msg_type": "interactive",
             "card": {
@@ -157,9 +157,9 @@ jobs:
               "elements": [
                 {"tag": "div", "text": {"content": "**分支：** ${{ github.ref_name }}\n**提交：** ${{ github.sha }}\n**触发：** ${{ github.event_name }}", "tag": "lark_md"}},
                 {"tag": "hr"},
-                {"tag": "div", "text": {"content": "**测试结果：** ${{ env.RESULT || '查看详情' }}", "tag": "lark_md"}},
-                {"tag": "div", "text": {"content": "**禅道任务：** ID 22\n**Allure 报告：** [点击查看](${{ env.REPORT_URL }})", "tag": "lark_md"}},
-                {"tag": "div", "text": {"content": "**运行详情：** [${{ github.repository }} Actions #${{ github.run_id }}](${{ env.RUN_URL }})", "tag": "lark_md"}}
+                {"tag": "div", "text": {"content": "**测试结果：** ${RESULT:-查看详情}", "tag": "lark_md"}},
+                {"tag": "div", "text": {"content": "**禅道任务：** ID 22\n**Allure 报告：** [点击查看]($REPORT_URL)", "tag": "lark_md"}},
+                {"tag": "div", "text": {"content": "**运行详情：** [${{ github.repository }} Actions #${{ github.run_id }}]($RUN_URL)", "tag": "lark_md"}}
               ]
             }
           }
