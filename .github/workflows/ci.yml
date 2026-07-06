@@ -101,10 +101,12 @@ jobs:
             fi
           done
 
-      - name: 安装 Python 依赖
+      - name: 安装 Python 依赖 + Playwright
         run: |
           cd api_testcases
           pip install -r requirements.txt
+          pip install playwright
+          python -m playwright install chromium --with-deps
 
       - name: 安装 Allure CLI
         run: |
