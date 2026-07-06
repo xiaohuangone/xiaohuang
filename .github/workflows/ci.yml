@@ -159,8 +159,7 @@ jobs:
                 {"tag": "hr"},
                 {"tag": "div", "text": {"content": "**测试结果：** ${{ env.RESULT || '查看详情' }}", "tag": "lark_md"}},
                 {"tag": "div", "text": {"content": "**禅道任务：** ID 22\n**Allure 报告：** [点击查看](${{ env.REPORT_URL }})", "tag": "lark_md"}},
-                {"tag": "hr"},
-                {"tag": "action", "actions": [{"tag": "button", "text": {"tag": "plain_text", "content": "查看 GitHub Actions 运行详情"}, "type": "primary", "url": "${{ env.RUN_URL }}"}]}
+                {"tag": "div", "text": {"content": "**运行详情：** [${{ github.repository }} Actions #${{ github.run_id }}](${{ env.RUN_URL }})", "tag": "lark_md"}}
               ]
             }
           }
