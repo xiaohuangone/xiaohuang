@@ -53,10 +53,10 @@ jobs:
         run: |
           # 安装 MySQL 客户端
           sudo apt-get update -qq && sudo apt-get install -y -qq mysql-client
-          # 等待 MySQL 就绪
+          # 等待 MySQL 就绪（必须用 127.0.0.1 强制 TCP，localhost 走 socket）
           echo "等待 MySQL 就绪..."
           for i in $(seq 1 30); do
-            if mysqladmin ping -h localhost -P 3309 -u root -p123456 2>/dev/null; then
+            if mysqladmin ping -h 127.0.0.1 -P 3309 -u root -p123456 2>/dev/null; then
               echo "MySQL 已就绪（第 ${i} 次）"
               break
             fi
@@ -65,12 +65,12 @@ jobs:
           # 执行建表脚本
           for f in back/sql/schema_v*.sql; do
             echo "执行: $f"
-            mysql -h localhost -P 3309 -u root -p123456 web < "$f"
+            mysql -h 127.0.0.1 -P 3309 -u root -p123456 web < "$f"
           done
           # 执行种子数据
           for f in back/sql/seed_*.sql; do
             echo "执行: $f"
-            mysql -h localhost -P 3309 -u root -p123456 web < "$f"
+            mysql -h 127.0.0.1 -P 3309 -u root -p123456 web < "$f"
           done
           echo "数据库初始化完成"
 
