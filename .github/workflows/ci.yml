@@ -44,20 +44,36 @@ jobs:
       - name: 编译后端
         run: |
           cd back
-          mvn package -DskipTests -q
+          mvn package -DskipTests -q -B
+          echo "=== 检查 JAR 文件 ==="
+          ls -la target/*.jar
           echo "后端构建完成"
 
       - name: 启动后端
         run: |
-          cd back/target
-          nohup java -jar *.jar > /tmp/backend.log 2>&1 &
+          # 检查 JAR 是否存在
+          JAR_FILE=$(ls back/target/*.jar 2>/dev/null | head -1)
+          if [ -z "$JAR_FILE" ]; then
+            echo "JAR 文件不存在，构建可能失败"
+            ls -la back/target/ 2>/dev/null || echo "target 目录为空"
+            exit 1
+          fi
+          echo "找到 JAR: $JAR_FILE"
+          nohup java -jar "$JAR_FILE" --server.port=8080 > /tmp/backend.log 2>&1 &
+          BACKEND_PID=$!
+          echo "后端 PID: $BACKEND_PID"
           echo "等待后端启动..."
-          for i in $(seq 1 30); do
+          for i in $(seq 1 60); do
             if curl -s http://localhost:8080/actuator/health > /dev/null 2>&1; then
-              echo "后端已就绪"
+              echo "后端已就绪（耗时 ${i}秒）"
               break
             fi
             sleep 2
+            if [ $i -eq 60 ]; then
+              echo "===== 后端启动超时，查看日志 ====="
+              tail -50 /tmp/backend.log
+              exit 1
+            fi
           done
 
       - name: 安装 Python 依赖
