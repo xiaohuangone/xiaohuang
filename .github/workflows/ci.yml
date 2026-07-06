@@ -60,18 +60,18 @@ jobs:
             sleep 2
           done
 
-      - name: 安装 uv 和依赖
+      - name: 安装 Python 依赖
         run: |
-          pip install uv
           cd api_testcases
-          uv pip install -r requirements.txt --system
-          uv run --system pip install allure-commandline
+          pip install -r requirements.txt
+          pip install allure-commandline
+          pip install uv
           uv --version
 
       - name: 运行 pytest + Allure
         run: |
           cd api_testcases
-          uv run --system pytest --alluredir=reports/allure_results -v
+          python -m pytest --alluredir=reports/allure_results -v
 
       - name: 生成 Allure 报告
         run: |
@@ -84,7 +84,7 @@ jobs:
           ZENTAO_PASS: ${{ secrets.ZENTAO_PASS }}
         run: |
           cd api_testcases
-          uv run --system python zentao_sync.py
+          python zentao_sync.py
 
       - name: 上传 Allure 报告
         uses: actions/upload-artifact@v4
