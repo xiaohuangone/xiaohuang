@@ -51,11 +51,13 @@ jobs:
 
       - name: 初始化数据库（建表 + 种子数据）
         run: |
+          # 安装 MySQL 客户端
+          sudo apt-get update -qq && sudo apt-get install -y -qq mysql-client
           # 等待 MySQL 就绪
           echo "等待 MySQL 就绪..."
           for i in $(seq 1 30); do
             if mysqladmin ping -h localhost -P 3309 -u root -p123456 2>/dev/null; then
-              echo "MySQL 已就绪"
+              echo "MySQL 已就绪（第 ${i} 次）"
               break
             fi
             sleep 2
