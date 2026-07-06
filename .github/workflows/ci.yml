@@ -132,6 +132,50 @@ jobs:
           cd api_testcases
           python zentao_sync.py
 
+      - name: 发送测试结果到飞书
+        if: always()
+        env:
+          FEISHU_WEBHOOK_URL: ${{ secrets.FEISHU_WEBHOOK_URL }}
+        run: |
+          # 从 pytest 输出提取测试结果
+          RESULT=$(cd api_testcases && python -m pytest --alluredir=reports/allure_results -q 2>&1 | tail -1 || true)
+          echo "测试结果: $RESULT"
+
+          # 获取 Allure 报告 URL
+          REPORT_URL="https://xiaohuangone.github.io/xiaohuang/"
+          RUN_URL="${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+
+          # 飞书消息卡片
+          cat > /tmp/feishu_card.json << 'EOF'
+          {
+            "msg_type": "interactive",
+            "card": {
+              "header": {
+                "title": {"content": "🧪 CI/CD 测试结果通知", "tag": "plain_text"},
+                "template": "${{ job.status == 'success' && 'green' || 'red' }}"
+              },
+              "elements": [
+                {"tag": "div", "text": {"content": "**分支：** ${{ github.ref_name }}\n**提交：** ${{ github.sha }}\n**触发：** ${{ github.event_name }}", "tag": "lark_md"}},
+                {"tag": "hr"},
+                {"tag": "div", "text": {"content": "**测试结果：** ${{ env.RESULT || '查看详情' }}", "tag": "lark_md"}},
+                {"tag": "div", "text": {"content": "**禅道任务：** ID 22\n**Allure 报告：** [点击查看](${{ env.REPORT_URL }})", "tag": "lark_md"}},
+                {"tag": "hr"},
+                {"tag": "action", "actions": [{"tag": "button", "text": {"tag": "plain_text", "content": "查看 GitHub Actions 运行详情"}, "type": "primary", "url": "${{ env.RUN_URL }}"}]}
+              ]
+            }
+          }
+          EOF
+
+          # 发送到飞书 webhook
+          if [ -n "$FEISHU_WEBHOOK_URL" ]; then
+            curl -s -X POST "$FEISHU_WEBHOOK_URL" \
+              -H "Content-Type: application/json" \
+              -d @/tmp/feishu_card.json
+            echo "飞书通知已发送"
+          else
+            echo "FEISHU_WEBHOOK_URL 未配置，跳过飞书通知"
+          fi
+
       - name: 上传 Allure 报告
         uses: actions/upload-artifact@v4
         with:
