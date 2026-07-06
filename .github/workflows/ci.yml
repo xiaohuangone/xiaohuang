@@ -49,6 +49,29 @@ jobs:
           ls -la target/*.jar
           echo "后端构建完成"
 
+      - name: 初始化数据库（建表 + 种子数据）
+        run: |
+          # 等待 MySQL 就绪
+          echo "等待 MySQL 就绪..."
+          for i in $(seq 1 30); do
+            if mysqladmin ping -h localhost -P 3309 -u root -p123456 2>/dev/null; then
+              echo "MySQL 已就绪"
+              break
+            fi
+            sleep 2
+          done
+          # 执行建表脚本
+          for f in back/sql/schema_v*.sql; do
+            echo "执行: $f"
+            mysql -h localhost -P 3309 -u root -p123456 web < "$f"
+          done
+          # 执行种子数据
+          for f in back/sql/seed_*.sql; do
+            echo "执行: $f"
+            mysql -h localhost -P 3309 -u root -p123456 web < "$f"
+          done
+          echo "数据库初始化完成"
+
       - name: 启动后端
         run: |
           # 检查 JAR 是否存在
