@@ -64,9 +64,12 @@ jobs:
         run: |
           cd api_testcases
           pip install -r requirements.txt
-          pip install allure-commandline
-          pip install uv
-          uv --version
+
+      - name: 安装 Allure CLI
+        run: |
+          curl -sL https://github.com/allure-framework/allure2/releases/download/2.33.0/allure-2.33.0.tgz | tar xz -C /tmp
+          sudo ln -sf /tmp/allure-2.33.0/bin/allure /usr/local/bin/allure
+          allure --version
 
       - name: 运行 pytest + Allure
         run: |
